@@ -20,5 +20,18 @@ public class MainSomethinAryOperator {
         BinaryOperator<Double> biOperator = (x, y) -> x * y;
         System.out.println(biOperator.apply(4.0, 5.25));
 
+        String str = buildString("a", "b", "=",
+                s -> " " + s + " ",
+                (s1, s2) -> s1 + " + " + s2);
+
+        System.out.println(str);
+
+    }
+
+    static String buildString(String s1, String s2, String s3, UnaryOperator<String> uni, BinaryOperator<String> bio) {
+        String result = uni.apply(s3);
+        result += bio.apply(s1, s2);
+
+        return result;
     }
 }
