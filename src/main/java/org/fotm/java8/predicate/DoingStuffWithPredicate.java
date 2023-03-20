@@ -46,6 +46,23 @@ public class DoingStuffWithPredicate {
 
         System.out.println("Or");
         cars.stream().filter(fords.or(oldCar)).forEach(System.out::println);
+
+        fizzbuzz(6);
+        fizzbuzz(10);
+        fizzbuzz(15);
+    }
+
+    static void fizzbuzz(Integer num) {
+        System.out.println("What's a programming interview with out this little gem?");
+        Predicate<Integer> divisibleBy3 = x -> x % 3 == 0;
+        Predicate<Integer> divisibleBy5 = x -> x % 5 == 0;
+
+        if ( divisibleBy3.test(num))
+        System.out.print("fizz");
+        if (divisibleBy5.test(num))
+            System.out.print("buzz");
+        System.out.println();
+
     }
 }
 
@@ -78,4 +95,5 @@ class Car {
                 ", year=" + year +
                 '}';
     }
+
 }
