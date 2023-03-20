@@ -11,14 +11,14 @@ public class MainPredicate {
 
     public static void main(String[] args) {
 
-        Evaluate<Integer> withInteger = i -> i < 0;
-        Evaluate<String> withString = str -> str.length() > 0;
+        EvaluateSolution<Integer> withInteger = i -> i < 0;
+        EvaluateSolution<String> withString = str -> str.length() > 0;
 
         // using a FunctionalInterface
-        System.out.println(withInteger.isTrue(-2));
-        System.out.println(withInteger.isTrue(42));
-        System.out.println(withString.isTrue(""));
-        System.out.println(withString.isTrue("boo"));
+        System.out.println(withInteger.isNegative(-2));
+        System.out.println(withInteger.isNegative(42));
+        System.out.println(withString.isNegative(""));
+        System.out.println(withString.isNegative("boo"));
 
         // explicit definition of Predicate
         Predicate<Integer> predicate = i -> i < 0;
