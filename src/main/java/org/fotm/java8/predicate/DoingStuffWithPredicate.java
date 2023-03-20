@@ -50,6 +50,14 @@ public class DoingStuffWithPredicate {
         fizzbuzz(6);
         fizzbuzz(10);
         fizzbuzz(15);
+        fizzbuzz(17);
+        System.out.println("------");
+
+        fizzbuzzNoBlankLines(6);
+        fizzbuzzNoBlankLines(10);
+        fizzbuzzNoBlankLines(15);
+        fizzbuzzNoBlankLines(17);
+        System.out.println("------");
     }
 
     static void fizzbuzz(Integer num) {
@@ -62,7 +70,22 @@ public class DoingStuffWithPredicate {
         if (divisibleBy5.test(num))
             System.out.print("buzz");
         System.out.println();
+    }
 
+    static void fizzbuzzNoBlankLines(Integer num) {
+        System.out.println("What's a programming interview with out this little gem?");
+        // if there is no match print no match
+        Predicate<Integer> divisibleBy3 = x -> x % 3 == 0;
+        Predicate<Integer> divisibleBy5 = x -> x % 5 == 0;
+
+        if (divisibleBy3.or(divisibleBy5).negate().test(num)) return;
+
+        if ( divisibleBy3.test(num))
+            System.out.print("fizz");
+        if (divisibleBy5.test(num))
+            System.out.print("buzz");
+
+        System.out.println();
     }
 }
 
