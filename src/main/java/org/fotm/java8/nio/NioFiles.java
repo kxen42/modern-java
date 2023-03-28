@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Some examples come from blogs
+ * Some examples come from blogs and some are my own
  * https://mkyong.com/java/java-files-find-examples/
  */
 public class NioFiles {
