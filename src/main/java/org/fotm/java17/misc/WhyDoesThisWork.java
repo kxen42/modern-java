@@ -3,6 +3,11 @@ package org.fotm.java17.misc;
 /**
  * Why do these uses of {@code Tennis.hit()} work.
  * It must have something to do with the fact that it is in the same file.
+ *
+ * Answer from instructor
+ *     It works because the method is {@code static}. If you make the method {@code hit} an
+ *     instance method, it fails to compile. Being private is no issue as we
+ *     are using the {@code Tennis} class to access the method.
  */
 public class WhyDoesThisWork {
     public interface Tennis {
