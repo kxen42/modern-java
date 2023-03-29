@@ -28,6 +28,10 @@ public class MainVar {
     //      - var var = 8; //ok
     //      - identifiers can be called var but not type names e.g. classes, interfaces, enums.
 
+    static {
+        var theAnswer = 42;
+        System.out.println(theAnswer);
+    }
 
     { // instance initialization block
         var d = 4.5;    // 1. 'd' is now double
@@ -35,6 +39,7 @@ public class MainVar {
     }
 
     public static void main(String[] args) {
+        var var = 8; // identifiers can be called var but not type names e.g. classes, interfaces, enums.
         var x = 2;      // 1.
         var y = 42.0;   // 1.
         var s = "abc";  // 1.
