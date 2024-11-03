@@ -11,9 +11,9 @@ public class MainUnboundMethodReference {
         unboundMethodReferences();      // unbound
     }
 
-    public static void unboundMethodReferences(){
+    public static void unboundMethodReferences() {
 
-        Function<String, String> upperLambda  = s -> s.toUpperCase();
+        Function<String, String> upperLambda = s -> s.toUpperCase();
         // not using toUpperCase on a local variable, using it on a class instance method
         Function<String, String> upperMethodReference = String::toUpperCase;
 
@@ -22,8 +22,8 @@ public class MainUnboundMethodReference {
         System.out.println(upperMethodReference.apply("sean"));  // SEAN
 
 
-        BiFunction<String, String, String> concatLambda   = (s1, s2) -> s1.concat(s2);
-        BiFunction<String, String, String> concatMethodReference  = String::concat;
+        BiFunction<String, String, String> concatLambda = (s1, s2) -> s1.concat(s2);
+        BiFunction<String, String, String> concatMethodReference = String::concat;
 
         System.out.println(concatLambda.apply("Sean ", "Kennedy")); // Sean Kennedy
 

@@ -21,8 +21,8 @@ public class MainSomethingAryOperator {
         System.out.println(biOperator.apply(4.0, 5.25));
 
         String str = buildString("a", "b", "=",
-                s -> " " + s + " ",
-                (s1, s2) -> s1 + " + " + s2);
+                                 s -> " " + s + " ",
+                                 (s1, s2) -> s1 + " + " + s2);
 
         System.out.println(str);
 

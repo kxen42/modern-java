@@ -23,13 +23,12 @@ public class InfiniteStreams {
         //     T apply(T t)
 
         System.out.println(
-        Stream
-            .iterate(2, n -> n + 2)
-            .limit(10)  // force it to end after 10 iterations
-            .map(x -> Integer.toString(x))
-            .reduce("", (x, y) -> x.isEmpty() ? y: String.join(", ", x, y))
+            Stream
+                .iterate(2, n -> n + 2)
+                .limit(10)  // force it to end after 10 iterations
+                .map(x -> Integer.toString(x))
+                .reduce("", (x, y) -> x.isEmpty() ? y : String.join(", ", x, y))
         );
-
 
     }
 

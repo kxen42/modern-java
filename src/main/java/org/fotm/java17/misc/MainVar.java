@@ -5,11 +5,11 @@ import java.util.List;
 
 /**
  * The stuff you can do with 'var'. A dubious introduction to Java 10.
- *
+ * <p>
  * The {@code var} key instead of the can be used with local variables
  * that must be initialized on the line where they are declared so
  * the knows what type to infer.
- *
+ * <p>
  * Detailed comments from Dr. Sean Kennedy
  */
 public class MainVar {
@@ -35,7 +35,7 @@ public class MainVar {
 
     { // instance initialization block
         var d = 4.5;    // 1. 'd' is now double
-        d=98.9;         // 4. value can change
+        d = 98.9;         // 4. value can change
     }
 
     public static void main(String[] args) {
@@ -45,17 +45,18 @@ public class MainVar {
         var s = "abc";  // 1.
         m(1);
     }
-    public static void m(int x){    // 2.
 
-        var s = (String)null;     // 5. cast null to a type first
-        int a=3, b=4;       // 6.
-        var var=9;          // 7.
+    public static void m(int x) {    // 2.
+
+        var s = (String) null;     // 5. cast null to a type first
+        int a = 3, b = 4;       // 6.
+        var var = 9;          // 7.
 
         List<String> ls = new ArrayList<>();        // 2.
         ls.add("a");
         ls.add("a");
         ls.add("b");
-        ls.removeIf( (var str) -> str                                                                                                               .equals("a")); // Predicate, removes every "a"
+        ls.removeIf((var str) -> str.equals("a")); // Predicate, removes every "a"
         System.out.println(ls); // [b]
     }
 }

@@ -1,6 +1,6 @@
 package org.fotm.java17.interfaces;
 
-public class Phone implements Device, Switch{
+public class Phone implements Device, Switch {
 
     @Override
     public void turnOn() {

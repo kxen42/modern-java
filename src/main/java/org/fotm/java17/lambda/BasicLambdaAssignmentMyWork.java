@@ -13,11 +13,11 @@ import java.util.function.Supplier;
  * comparing(Function<? super T,? extends U> keyExtractor, Comparator<? super U> keyComparator)
  * Accepts a function that extracts a sort key from a type T, and returns a Comparator<T> that compares by that sort key using the specified Comparator.
  * This keyExtractor doesn't need to return something that is already Comparable
- *
+ * <p>
  * The more succinct solution is to use
  * comparing(Function<? super T,? extends U> keyExtractor)
  * Accepts a function that extracts a Comparable sort key from a type T, and returns a Comparator<T> that compares by that sort key.
- *
+ * <p>
  * I missed that the keyExtractor only needs to be a function that returns a comparable value.
  * The Person.getName() and Person.getHeight do just that. Doh!
  */
@@ -36,6 +36,36 @@ public class BasicLambdaAssignmentMyWork {
         sortName(personList);
         sortHeight(personList);
 
+    }
+
+    private static List<Person> getPeople() {
+        List<Person> result = new ArrayList<>();
+        result.add(new Person("Mike", 33, 1.8));
+        result.add(new Person("Mary", 25, 1.4));
+        result.add(new Person("Alan", 34, 1.7));
+        result.add(new Person("Zoe", 30, 1.5));
+        return result;
+    }
+
+    static void sortName(List<Person> peeps) {
+        Comparator<String> comparator = String::compareTo;
+
+        peeps.sort(Comparator.comparing(Person::getName, comparator));
+        peeps.forEach(System.out::println);
+    }
+
+    static void sortAge(List<Person> peeps) {
+        Comparator<Integer> comparator = Integer::compareTo;
+
+        peeps.sort(Comparator.comparing(Person::getAge, comparator));
+        peeps.forEach(System.out::println);
+    }
+
+    static void sortHeight(List<Person> peeps) {
+        Comparator<Double> comparator = Double::compareTo;
+
+        peeps.sort(Comparator.comparing(Person::getHeight, comparator));
+        peeps.forEach(System.out::println);
     }
 
     private void consume() {
@@ -133,35 +163,5 @@ public class BasicLambdaAssignmentMyWork {
             return "Person{" + "age=" + age + ", name=" + name + ", height=" + height + '}';
         }
 
-    }
-
-    private static List<Person> getPeople() {
-        List<Person> result = new ArrayList<>();
-        result.add(new Person("Mike", 33, 1.8));
-        result.add(new Person("Mary", 25, 1.4));
-        result.add(new Person("Alan", 34, 1.7));
-        result.add(new Person("Zoe", 30, 1.5));
-        return result;
-    }
-
-    static void sortName(List<Person> peeps) {
-        Comparator<String> comparator = String::compareTo;
-
-        peeps.sort(Comparator.comparing(Person::getName, comparator));
-        peeps.forEach(System.out::println);
-    }
-
-    static void sortAge(List<Person> peeps) {
-        Comparator<Integer> comparator = Integer::compareTo;
-
-        peeps.sort(Comparator.comparing(Person::getAge, comparator));
-        peeps.forEach(System.out::println);
-    }
-
-    static void sortHeight(List<Person> peeps) {
-        Comparator<Double> comparator = Double::compareTo;
-
-        peeps.sort(Comparator.comparing(Person::getHeight, comparator));
-        peeps.forEach(System.out::println);
     }
 }

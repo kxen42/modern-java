@@ -14,9 +14,10 @@ public class DoingStuffWithBiConsumer {
         // Look at that - it can use arrays
         // Using streams inline in a print statement
         BiConsumer<String, Integer[]> customerConsumer = (name, orders) -> System.out.println("name :" + name +
-                " orders: " + Arrays.stream(orders).map(Object::toString).collect(Collectors.joining(", ")));
+                                                                                                  " orders: " + Arrays.stream(orders)
+                                                                                                                      .map(Object::toString)
+                                                                                                                      .collect(Collectors.joining(", ")));
 
     }
-
 
 }

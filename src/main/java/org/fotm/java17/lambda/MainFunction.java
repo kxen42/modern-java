@@ -25,7 +25,7 @@ public class MainFunction {
 
         // Function<T,R> can be different types
         Function<String, Integer> toInt = s -> s.length();
-        Function<Integer, String> toString = x -> "oohs and aahs  r"  + x;
+        Function<Integer, String> toString = x -> "oohs and aahs  r" + x;
 
         System.out.println(toInt.apply("blah"));
         System.out.println(toString.apply(4096));

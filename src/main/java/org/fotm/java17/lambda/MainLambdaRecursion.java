@@ -3,26 +3,22 @@ package org.fotm.java17.lambda;
 
 import java.math.BigInteger;
 import java.util.HashMap;
-import java.util.function.BiFunction;
-
-import java.util.function.UnaryOperator;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.UnaryOperator;
 
 /**
  * My experiments with lambdas used in recursive Fibonacci algorithms.
  * Also, more adventures with BigIntegers.
- *
+ * <p>
  * by Karen Christenson
  */
 public class MainLambdaRecursion {
 
-    public static Integer fibonacci(Integer x) {
-        if (x <= 2) return 1;
-        return fibonacci(x - 1) + fibonacci(x - 2);
-    }
-
     // You can use an instance property or a class property in a lambda
     public static UnaryOperator<Integer> fibonacciUnaryOperator;
+    public static BiFunction<Integer, Map<Integer, Integer>, Integer> memoized;
+    public static BiFunction<BigInteger, Map<BigInteger, BigInteger>, BigInteger> memoizedBiggy;
 
     static {
         fibonacciUnaryOperator = (i) -> {
@@ -31,20 +27,10 @@ public class MainLambdaRecursion {
         };
     }
 
-    public UnaryOperator<BigInteger> instanceVarUnaryOperator;
-
-    public MainLambdaRecursion() {
-        this.instanceVarUnaryOperator = (i) -> {
-            if (i.compareTo(BigInteger.TWO) < 0) return BigInteger.ONE;
-            return this.instanceVarUnaryOperator.apply(i.subtract(BigInteger.ONE)).add(this.instanceVarUnaryOperator.apply(i.subtract(BigInteger.TWO)));
-        };
-    }
-
-    public static BiFunction<Integer, Map<Integer, Integer>, Integer> memoized;
-
     static {
         memoized = (i, memo) -> {
-            if (memo.keySet().contains(i)) return memo.get(i);
+            if (memo.keySet()
+                    .contains(i)) return memo.get(i);
             memo.put(0, 0);
             memo.put(1, 1);
             if (i <= 2) return 1;
@@ -52,23 +38,12 @@ public class MainLambdaRecursion {
         };
     }
 
-    public static BigInteger memoizedFibonacciBI(BigInteger i, Map<BigInteger, BigInteger> memo) {
-        memo.put(BigInteger.ZERO, BigInteger.ZERO);
-        memo.put(BigInteger.ONE, BigInteger.ONE);
-        if (memo.keySet().contains(i)) return memo.get(i);
-        if (i.compareTo(BigInteger.TWO) < 0) return BigInteger.ONE;
-        memo.put(i, memoizedFibonacciBI(i.subtract(BigInteger.ONE), memo)
-                .add(memoizedFibonacciBI(i.subtract(BigInteger.TWO), memo)));
-        return memo.get(i);
-    }
-
-    public static BiFunction<BigInteger, Map<BigInteger, BigInteger>, BigInteger> memoizedBiggy;
-
     static {
         memoizedBiggy = (i, memo) -> {
             memo.put(BigInteger.ZERO, BigInteger.ZERO);
             memo.put(BigInteger.ONE, BigInteger.ONE);
-            if (memo.keySet().contains(i)) return memo.get(i);
+            if (memo.keySet()
+                    .contains(i)) return memo.get(i);
             if (i.compareTo(BigInteger.TWO) < 0) return BigInteger.ONE;
 
             // readable - it doesn't make my eyes sweat
@@ -77,12 +52,38 @@ public class MainLambdaRecursion {
 //            memo.put(i, left.apply(i, memo).add(right.apply(i, memo)));
 
             // works not very readable
-            memo.put(i, memoizedBiggy.apply(i.subtract(BigInteger.ONE), memo).add(memoizedBiggy.apply(i.subtract(BigInteger.TWO), memo)));
+            memo.put(i, memoizedBiggy.apply(i.subtract(BigInteger.ONE), memo)
+                                     .add(memoizedBiggy.apply(i.subtract(BigInteger.TWO), memo)));
 
             return memo.get(i);
         };
     }
 
+    public UnaryOperator<BigInteger> instanceVarUnaryOperator;
+
+    public MainLambdaRecursion() {
+        this.instanceVarUnaryOperator = (i) -> {
+            if (i.compareTo(BigInteger.TWO) < 0) return BigInteger.ONE;
+            return this.instanceVarUnaryOperator.apply(i.subtract(BigInteger.ONE))
+                                                .add(this.instanceVarUnaryOperator.apply(i.subtract(BigInteger.TWO)));
+        };
+    }
+
+    public static Integer fibonacci(Integer x) {
+        if (x <= 2) return 1;
+        return fibonacci(x - 1) + fibonacci(x - 2);
+    }
+
+    public static BigInteger memoizedFibonacciBI(BigInteger i, Map<BigInteger, BigInteger> memo) {
+        memo.put(BigInteger.ZERO, BigInteger.ZERO);
+        memo.put(BigInteger.ONE, BigInteger.ONE);
+        if (memo.keySet()
+                .contains(i)) return memo.get(i);
+        if (i.compareTo(BigInteger.TWO) < 0) return BigInteger.ONE;
+        memo.put(i, memoizedFibonacciBI(i.subtract(BigInteger.ONE), memo)
+            .add(memoizedFibonacciBI(i.subtract(BigInteger.TWO), memo)));
+        return memo.get(i);
+    }
 
     public static void main(String[] args) {
         System.out.println("recursive function " + fibonacci(10));

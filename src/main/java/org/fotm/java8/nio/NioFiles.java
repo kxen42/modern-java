@@ -50,12 +50,14 @@ public class NioFiles {
         List<Path> found;
 
         try (Stream<Path> pathStream =
-                     Files.find(path,
-                             1,
-                             (aPath, fileAttributes) ->
-                                     Files.isReadable(aPath) &&
-                                             aPath.getFileName().toString().equalsIgnoreCase(fileName)
-                     )) {
+                 Files.find(path,
+                            1,
+                            (aPath, fileAttributes) ->
+                                Files.isReadable(aPath) &&
+                                    aPath.getFileName()
+                                         .toString()
+                                         .equalsIgnoreCase(fileName)
+                 )) {
             found = pathStream.collect(Collectors.toList());
         }
         // and empty list is created when nothing is found
@@ -69,13 +71,13 @@ public class NioFiles {
 
         List<Path> found;
         try (Stream<Path> pathStream =
-                     Files.find(path,
-                             1,
-                             (aPath, fileAttributes) -> {
-                                 if (Files.isDirectory(aPath)) return false;
-                                 return fileAttributes.size() >= size;
-                             }
-                     )) {
+                 Files.find(path,
+                            1,
+                            (aPath, fileAttributes) -> {
+                                if (Files.isDirectory(aPath)) return false;
+                                return fileAttributes.size() >= size;
+                            }
+                 )) {
             found = pathStream.collect(Collectors.toList());
         }
         // and empty list is created when nothing is found

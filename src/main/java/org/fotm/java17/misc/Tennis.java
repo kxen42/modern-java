@@ -5,20 +5,24 @@ package org.fotm.java17.misc;
  * The mcEnroe parts is added for grins and giggles.
  */
 public interface Tennis {
-    private static void hit(String stroke){
-        System.out.println("Hitting a "+stroke);
+    private static void hit(String stroke) {
+        System.out.println("Hitting a " + stroke);
     }
-    private void smash(){ hit("smash"); }
-    default void forehand(){ hit("forehand"); }
-    static void backhand(){
+
+    static void backhand() {
         hit("backhand");
     }
+
+    private void smash() {hit("smash");}
+
+    default void forehand() {hit("forehand");}
 
     default void mcEnroe() {
         smash();
         yellAtRef();
         throwRacket();
     }
+
     private void yellAtRef() {
         System.out.println("Are you blind!");
     }

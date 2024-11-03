@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.*;
+import java.util.function.BiPredicate;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 /**
  * This assignment will demonstrate the different types on method references - bound, unbound, static and constructor. As you will see, when defining method references, context is key.
@@ -90,6 +94,7 @@ public class AssignmentForMethodReferences {
         unboundMR();
         constructorMR();
     }
+
     /*
 
     This shows the importance of context when working with method references.

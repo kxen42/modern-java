@@ -31,16 +31,17 @@ public class MainMiscMethodReference {
         Integer onePeep = functionMetRef.apply(new Person()); // 1
         Integer twoPeep = biFunLMR.apply(new Person(), new Person()); // 2
 
-
     }
 
     // wanted to know what this would do
     static void passMethodReferenceAsArg() {
         usesBiFunction(Person::howMany);
     }
+
     static void usesBiFunction(BiFunction<Person, Person, Integer> biFunction) {
         System.out.println(biFunction.apply(new Person(), new Person()));
     }
+
     static class Person {
         public static Integer howMany(Person... people) {
             return people.length;

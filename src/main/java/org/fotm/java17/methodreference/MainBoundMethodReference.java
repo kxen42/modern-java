@@ -1,6 +1,8 @@
 package org.fotm.java17.methodreference;
 
-import java.util.function.*;
+import java.util.function.BiFunction;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 /**
  * by Sean Kennedy
@@ -9,11 +11,12 @@ public class MainBoundMethodReference {
     public static void main(String[] args) {
         boundMethodReferences();
     }
-    public static void boundMethodReferences(){
+
+    public static void boundMethodReferences() {
         String name = "Mr. Joe Bloggs"; // The type of name is know at compile-time
 
-        Supplier<String> lowerL   = () -> name.toLowerCase();   // lambda
-        Supplier<String> lowerMR  = name::toLowerCase;          // method reference
+        Supplier<String> lowerL = () -> name.toLowerCase();   // lambda
+        Supplier<String> lowerMR = name::toLowerCase;          // method reference
 
         // No need to say which instance to call it on - the supplier is bound to name
         System.out.println(lowerL.get()); // mr. joe bloggs
@@ -25,7 +28,7 @@ public class MainBoundMethodReference {
         // has a functional method of test(T t), the startsWith(String) is used.
 
         // This is where "context" is important.
-        Predicate<String> titleL  = (title) -> name.startsWith(title);
+        Predicate<String> titleL = (title) -> name.startsWith(title);
         Predicate<String> titleMR = name::startsWith;
 
         System.out.println(titleL.test("Mr.")); // true

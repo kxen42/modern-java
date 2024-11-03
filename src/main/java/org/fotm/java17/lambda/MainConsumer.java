@@ -1,6 +1,10 @@
 package org.fotm.java17.lambda;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -14,7 +18,8 @@ public class MainConsumer {
         Consumer<String> easiestConsumerOnEarth = s -> System.out.println(s);
         easiestConsumerOnEarth.accept("the might consumer");
 
-        Arrays.asList("Fred", "Barney").forEach(easiestConsumerOnEarth);
+        Arrays.asList("Fred", "Barney")
+              .forEach(easiestConsumerOnEarth);
 
         // Consumer has andThen(Consumer<T>)
         Consumer<String> withAndThen = easiestConsumerOnEarth.andThen(s -> System.out.println(s.toUpperCase()));
@@ -24,8 +29,10 @@ public class MainConsumer {
         List<Integer> numbers = new ArrayList<>();
         Consumer<Integer> fx = x -> numbers.add(x);
 
-        Arrays.asList(1, 2, 3).forEach(fx);
-        Arrays.asList(9, 8, 7).forEach(fx);
+        Arrays.asList(1, 2, 3)
+              .forEach(fx);
+        Arrays.asList(9, 8, 7)
+              .forEach(fx);
         numbers.forEach(System.out::println);
 
         // BiConsumer

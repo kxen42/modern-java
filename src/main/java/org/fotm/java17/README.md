@@ -5,6 +5,7 @@ Udemy course by by Sean Kennedy
 Topics include:
 
 Java 8 Advanced:
+
 * Lambda Expressions
 * Streams
 * Generics
@@ -25,6 +26,7 @@ Java 11:
 * Modules
 
 Java 17:
+
 * Sealed classes
 * Records
 * switch expressions and pattern matching

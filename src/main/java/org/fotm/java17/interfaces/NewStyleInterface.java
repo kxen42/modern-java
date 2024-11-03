@@ -6,7 +6,7 @@ public interface NewStyleInterface {
         return "interface static method";
     }
 
-    default String defaultMethod() { return "NewStyleInterface default";}
+    default String defaultMethod() {return "NewStyleInterface default";}
 
     String oldFashionedMethod();
 }

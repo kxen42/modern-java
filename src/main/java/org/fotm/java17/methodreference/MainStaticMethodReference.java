@@ -10,7 +10,7 @@ public class MainStaticMethodReference {
         staticMethodReferences();       // static
     }
 
-    public static void staticMethodReferences(){
+    public static void staticMethodReferences() {
         // System.out::println is a case of static method reference
 
         //  Static method references are considered UNBOUND also. An example static method
@@ -18,17 +18,17 @@ public class MainStaticMethodReference {
         //
         //  Consumer takes one parameter => sort(List) is used, as opposed to sort(List, Comparator)
         // sort(List, Comparator) would need a BiFunction
-        Consumer<List<Integer>> sortL  = list -> Collections.sort(list);
+        Consumer<List<Integer>> sortL = list -> Collections.sort(list);
         Consumer<List<Integer>> sortMR = Collections::sort;
 
 
-        List<Integer> listOfNumbers = Arrays.asList(2,1,5,4,9);
+        List<Integer> listOfNumbers = Arrays.asList(2, 1, 5, 4, 9);
         sortL.accept(listOfNumbers);// execution
 
         System.out.println(listOfNumbers);  // [1, 2, 4, 5, 9]
 
 
-        listOfNumbers = Arrays.asList(8,12,4,3,7);
+        listOfNumbers = Arrays.asList(8, 12, 4, 3, 7);
         sortMR.accept(listOfNumbers);// execution
 
         System.out.println(listOfNumbers);  // [3, 4, 7, 8, 12]
