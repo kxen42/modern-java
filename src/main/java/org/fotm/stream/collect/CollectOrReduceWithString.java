@@ -2,7 +2,7 @@ package org.fotm.stream.collect;
 
 import java.util.stream.Stream;
 
-public class CollectingStrings {
+public class CollectOrReduceWithString {
     public static void main(String[] args) {
         usingReduce();
         usingCollect();
