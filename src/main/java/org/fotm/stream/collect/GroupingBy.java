@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 public class GroupingBy {
@@ -51,17 +52,25 @@ public class GroupingBy {
 
     /**
      * Find the distinct surnames for each city.
+     * toSet silently skips duplicates
      */
     public static void threeArg() {
         System.out.println(" ----- threeArg");
         List<User> users = UserGenerator.createUsers();
 
-        TreeMap<String, Set<String>> collect = users.stream()
-                                                    .collect(
-                                                        groupingBy(User::getCity,
-                                                                   TreeMap::new,
-                                                                   mapping(User::getLastName, toSet())));
+        TreeMap<String, Set<String>> distinct = users.stream()
+                                                     .collect(
+                                                         groupingBy(User::getCity,
+                                                                    TreeMap::new,
+                                                                    mapping(User::getLastName, toSet())));
 
-        System.out.println(collect);
+        System.out.println(distinct);
+
+        TreeMap<String, List<User>> usersGroupByCity = users.stream()
+                                                            .collect(
+                                                                groupingBy(User::getCity,
+                                                                           TreeMap::new,
+                                                                           toList()));
+        System.out.println(usersGroupByCity);
     }
 }
