@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
 
@@ -17,6 +18,7 @@ public class ToMap {
         twoArgToMap();
         threeArgToMap();
         fourArgToMap();
+        keyOnLengthOfString();
     }
 
     /**
@@ -69,6 +71,22 @@ public class ToMap {
                                                    TreeMap::new)
                                                );
 
+        System.out.println(collect);
+    }
+
+    public static void keyOnLengthOfString() {
+        // use string length as key, string as value
+        // have keys sorted
+        System.out.println(" ----- keyOnLengthOfString");
+
+
+        TreeMap<Integer, String> collect = Stream.of("a", "abc", "def", "h", "uvwxyz")
+                                                 .collect(toMap(
+                                                     String::length,
+                                                     Function.identity(),
+                                                     (s1, s2) -> String.join("|", s1, s2),
+                                                     TreeMap::new
+                                                 ));
         System.out.println(collect);
     }
 }
