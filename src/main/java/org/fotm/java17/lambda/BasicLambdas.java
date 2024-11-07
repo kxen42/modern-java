@@ -184,11 +184,12 @@ public class BasicLambdas {
     }
 }
 
+
 class Person {
 
-    private Integer age;
-    private String name;
-    private Double height;
+    private final Integer age;
+    private final String name;
+    private final Double height;
 
     Person(String name, Integer age, Double height) {
         this.age = age;

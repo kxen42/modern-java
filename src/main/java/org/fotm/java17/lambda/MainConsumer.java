@@ -46,7 +46,7 @@ public class MainConsumer {
         stuffMap.accept("Fred", "Flintstone");
         stuffMap.accept("Barney", "Rubble");
 
-        BiConsumer<String, String> printMap = (key, value) -> System.out.println(String.format("key: %s, value: %s", key, value));
+        BiConsumer<String, String> printMap = (key, value) -> System.out.printf("key: %s, value: %s%n", key, value);
 
         // I did not expect this syntax would work - it figures out the two values for the BiConsumer
         map.forEach(printMap);

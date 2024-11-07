@@ -1,6 +1,7 @@
 package org.fotm.stream;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -46,9 +47,9 @@ public class StaticMethodGeneratedStreams {
      */
     public static void arraysAsList() {
         // result is one, what gives?
-        System.out.println("Arrays.asList().stream() " + Arrays.asList(ints)
-                                                               .stream()
-                                                               .count());
+        System.out.println("Arrays.asList().stream() " + Collections.singletonList(ints)
+                                                                    .stream()
+                                                                    .count());
     }
 
     /**

@@ -136,9 +136,9 @@ public class BasicLambdaAssignmentMyWork {
     }
 
     static class Person {
-        private Integer age;
-        private String name;
-        private Double height;
+        private final Integer age;
+        private final String name;
+        private final Double height;
 
         public Person(String name, Integer age, Double height) {
             this.age = age;

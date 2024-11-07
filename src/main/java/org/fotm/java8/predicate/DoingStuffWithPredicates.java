@@ -1,5 +1,7 @@
 package org.fotm.java8.predicate;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +42,7 @@ public class DoingStuffWithPredicates {
     private static void biPredicate(List<Car> cars) {
         System.out.println("Use BiPredicate, BiConsumer, Consumer");
         System.out.println("High mileage Audis");
-        BiPredicate<String, Double> yearMileage = (make, miles) -> make.equals(make) && miles > 80000;
+        BiPredicate<String, Double> yearMileage = (make, miles) -> miles > 80000;
 
         BiConsumer<Car, List<String>> spewDefects = (car, defects) -> System.out.println(car.getMake() + " | " + car.getYear() + " | " + defects);
 
@@ -55,8 +57,8 @@ public class DoingStuffWithPredicates {
 
     private static void singlePredicate(List<Car> cars) {
         System.out.println("Use Predicate");
-        Predicate<Car> audis = c -> c.getMake() == "Audi";
-        Predicate<Car> fords = c -> c.getMake() == "Ford";
+        Predicate<Car> audis = c -> Objects.equals(c.getMake(), "Audi");
+        Predicate<Car> fords = c -> Objects.equals(c.getMake(), "Ford");
         Predicate<Car> oldCar = c -> c.getYear() < 2000;
 
         System.out.println("Old Audis");
@@ -159,7 +161,7 @@ public class DoingStuffWithPredicates {
             .addAll(Arrays.asList("torn driver side seat", "AM radio not working", "front springs kaput"));
         cars.get(2)
             .getDefects()
-            .addAll(Arrays.asList("chip in windshield"));
+            .add("chip in windshield");
         cars.get(3)
             .getDefects()
             .addAll(Arrays.asList("shift know loose", "short in steering column", "spontaneous combustion", "rust"));
@@ -170,57 +172,18 @@ public class DoingStuffWithPredicates {
     }
 }
 
+@Data
 class Car {
-    private String make;
-    private Integer year;
+    private final String make;
+    private final Integer year;
 
-    private Double mileage;
+    private final Double mileage;
 
-    private List<String> defects = new ArrayList<>();
+    private final List<String> defects = new ArrayList<>();
 
     public Car(String make, Integer year, Double mileage) {
         this.make = make;
         this.year = year;
         this.mileage = mileage;
-    }
-
-    public String getMake() {
-        return make;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public Double getMileage() {
-        return mileage;
-    }
-
-    public List<String> getDefects() {
-        return defects;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(make, year, mileage);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Car car = (Car) o;
-        return make.equals(car.make) && year.equals(car.year) && mileage.equals(car.mileage);
-    }
-
-    @Override
-    public String toString() {
-        return "Car{" +
-            "make='" + make +
-            ", year=" + year +
-            ", mileage=" + mileage +
-            ", defects=[" +
-            String.join(", ", defects) +
-            "]'}'";
     }
 }

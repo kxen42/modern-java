@@ -29,8 +29,8 @@ public class MainLambdaRecursion {
 
     static {
         memoized = (i, memo) -> {
-            if (memo.keySet()
-                    .contains(i)) return memo.get(i);
+            if (memo
+                    .containsKey(i)) return memo.get(i);
             memo.put(0, 0);
             memo.put(1, 1);
             if (i <= 2) return 1;
@@ -42,8 +42,8 @@ public class MainLambdaRecursion {
         memoizedBiggy = (i, memo) -> {
             memo.put(BigInteger.ZERO, BigInteger.ZERO);
             memo.put(BigInteger.ONE, BigInteger.ONE);
-            if (memo.keySet()
-                    .contains(i)) return memo.get(i);
+            if (memo
+                    .containsKey(i)) return memo.get(i);
             if (i.compareTo(BigInteger.TWO) < 0) return BigInteger.ONE;
 
             // readable - it doesn't make my eyes sweat
@@ -77,8 +77,8 @@ public class MainLambdaRecursion {
     public static BigInteger memoizedFibonacciBI(BigInteger i, Map<BigInteger, BigInteger> memo) {
         memo.put(BigInteger.ZERO, BigInteger.ZERO);
         memo.put(BigInteger.ONE, BigInteger.ONE);
-        if (memo.keySet()
-                .contains(i)) return memo.get(i);
+        if (memo
+                .containsKey(i)) return memo.get(i);
         if (i.compareTo(BigInteger.TWO) < 0) return BigInteger.ONE;
         memo.put(i, memoizedFibonacciBI(i.subtract(BigInteger.ONE), memo)
             .add(memoizedFibonacciBI(i.subtract(BigInteger.TWO), memo)));
@@ -91,12 +91,12 @@ public class MainLambdaRecursion {
         System.out.println("recursive static lambda " + fibonacciUnaryOperator.apply(10));
 
         MainLambdaRecursion mlr = new MainLambdaRecursion();
-        System.out.println("recursive instance var lambda " + mlr.instanceVarUnaryOperator.apply(BigInteger.valueOf(3l)));
+        System.out.println("recursive instance var lambda " + mlr.instanceVarUnaryOperator.apply(BigInteger.valueOf(3L)));
 
         System.out.println("memoized recursive static lambda " + memoized.apply(10, new HashMap<>()));
 
-        System.out.println("memoized recursive function using BigInteger " + memoizedFibonacciBI(BigInteger.valueOf(100l), new HashMap<>()));
+        System.out.println("memoized recursive function using BigInteger " + memoizedFibonacciBI(BigInteger.valueOf(100L), new HashMap<>()));
 
-        System.out.println("memoized recursive lambda using BigInteger " + memoizedBiggy.apply(BigInteger.valueOf(100l), new HashMap<>()));
+        System.out.println("memoized recursive lambda using BigInteger " + memoizedBiggy.apply(BigInteger.valueOf(100L), new HashMap<>()));
     }
 }
