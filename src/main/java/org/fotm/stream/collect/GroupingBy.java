@@ -94,9 +94,7 @@ public class GroupingBy {
 
         Map<Integer, List<User>> groupedByAge = users.stream()
                                                      .collect(groupingBy(User::getAge));
-        groupedByAge.forEach((age, theUsers) -> {
-            System.out.println("Age: " + age + ", users:" + theUsers);
-        });
+        groupedByAge.forEach((age, theUsers) -> System.out.println("Age: " + age + ", users:" + theUsers));
     }
 
     public static void determineNumberOfUsersByAge() {
@@ -207,9 +205,7 @@ public class GroupingBy {
         Age: 45; Members: {George Jetson=Member(name=George Jetson, age=45, fee=199.99)}
         Age: 15; Members: {Judy Jetson=Member(name=Judy Jetson, age=15, fee=19.99)}
          */
-        groupedByAgeAndNamesCustomCollector.forEach((age, members) -> {
-            System.out.println("Age: " + age + "; Members: " + members);
-        });
+        groupedByAgeAndNamesCustomCollector.forEach((age, members) -> System.out.println("Age: " + age + "; Members: " + members));
 
     }
 }

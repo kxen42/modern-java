@@ -2,8 +2,8 @@ package org.fotm.java8.biconsumer;
 
 public class Customer {
 
-    private String name;
-    private Integer[] orders;
+    private final String name;
+    private final Integer[] orders;
 
     public Customer(String name, Integer[] orders) {
         this.name = name;

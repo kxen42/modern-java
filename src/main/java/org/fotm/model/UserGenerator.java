@@ -1,5 +1,6 @@
 package org.fotm.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +20,8 @@ public class UserGenerator {
                 .firstName("Fred")
                 .id(UUID.randomUUID())
                 .lastName("Flintstone")
+
+                .memberFee(new BigDecimal("199.99"))
                 .build(),
             User.builder()
                 .age(34)
@@ -26,13 +29,17 @@ public class UserGenerator {
                 .firstName("Wilma")
                 .id(UUID.randomUUID())
                 .lastName("Flintstone")
+                .memberFee(new BigDecimal("99.99"))
                 .build(),
             User.builder()
+
                 .age(34)
                 .city("Bedrock")
                 .firstName("Betty")
                 .id(UUID.randomUUID())
                 .lastName("Rubble")
+
+                .memberFee(new BigDecimal("99.99"))
                 .build(),
             User.builder()
                 .age(35)
@@ -40,6 +47,7 @@ public class UserGenerator {
                 .firstName("Barney")
                 .id(UUID.randomUUID())
                 .lastName("Rubble")
+                .memberFee(new BigDecimal("99.99"))
                 .build(),
             User.builder()
                 .age(45)
@@ -47,6 +55,7 @@ public class UserGenerator {
                 .firstName("George")
                 .id(UUID.randomUUID())
                 .lastName("Jetson")
+                .memberFee(new BigDecimal("199.99"))
                 .build(),
             User.builder()
                 .age(8)
@@ -54,6 +63,7 @@ public class UserGenerator {
                 .firstName("Elroy")
                 .id(UUID.randomUUID())
                 .lastName("Jetson")
+                .memberFee(new BigDecimal("19.99"))
                 .build(),
             User.builder()
                 .age(39)
@@ -61,6 +71,7 @@ public class UserGenerator {
                 .firstName("Jane")
                 .id(UUID.randomUUID())
                 .lastName("Jetson")
+                .memberFee(new BigDecimal("19.99"))
                 .build(),
             User.builder()
                 .age(15)
@@ -68,6 +79,7 @@ public class UserGenerator {
                 .firstName("Judy")
                 .id(UUID.randomUUID())
                 .lastName("Jetson")
+                .memberFee(new BigDecimal("19.99"))
                 .build(),
             User.builder()
                 .age(5)
@@ -90,6 +102,7 @@ public class UserGenerator {
                 .firstName("Sandy")
                 .id(UUID.randomUUID())
                 .lastName("Squirrel")
+                .memberFee(new BigDecimal("199.99"))
                 .build()
         );
     }

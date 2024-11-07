@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -13,14 +14,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class User {
     private UUID id;
-    private String firstName;
-    private String lastName;
     private int age;
     private String city;
-
-    public User(String firstName, int age) {
-        this.firstName = firstName;
-        this.age = age;
-    }
+    private String firstName;
+    private String lastName;
+    private BigDecimal memberFee;
 }
 
