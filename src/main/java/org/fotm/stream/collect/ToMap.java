@@ -20,6 +20,8 @@ public class ToMap {
         fourArgToMap();
         keyOnLengthOfString();
         keyOnStreamElement();
+        usingFunctionIdentity();
+        mitigatingDuplicateKeys();
     }
 
     /**
@@ -97,12 +99,51 @@ public class ToMap {
         Map<String, Integer> collect = Stream.of("cake", "cookie", "pie", "cake")
                                              .collect(toMap(
                                                  Function.identity(),
-                                                 s -> s.length(),
-                                                 (x,y) -> x + y,
+                                                 String::length,
+                                                 Integer::sum,
                                                  TreeMap::new
                                              ));
 
         // {cake=8, cookie=6, pie=3}
+        System.out.println(collect);
+    }
+
+
+    public static void usingFunctionIdentity() {
+        System.out.println(" ----- usingFunctionIdentity");
+        List<String> strings = List.of("Fred", "Wilma", "Barney", "Betty");
+        Map<String, Integer> toMap = strings.stream()
+                                            .collect(toMap(Function.identity(), String::length));
+
+        /*
+        toMap type: java.util.HashMap
+        Barney:6
+        Wilma:5
+        Betty:5
+        Fred:4
+         */
+        System.out.println("toMap type: " + toMap.getClass().getCanonicalName());
+        toMap.forEach((x,y) -> System.out.println(x + ":" + y));
+    }
+
+    /**
+     * Using the toMap that uses a function to determine how to handle duplicate keys.
+     * <p>
+     * If you get to the mergeFunction you have to args that are the same.
+     * <pre>
+     * toMap(Function<? super T,? extends K> keyMapper,
+     * Function<? super T,? extends U> valueMapper,
+     * BinaryOperator<U> mergeFunction)
+     * </pre>
+     */
+    public static void mitigatingDuplicateKeys() {
+        System.out.println(" ----- mitigatingDuplicateKeys");
+        List<String> strings = List.of("Fred", "Fred", "Fred", "Wilma", "Wilma", "Betty");
+
+        Map<String, Integer> collect = strings.stream()
+                                              .collect(toMap(Function.identity(), String::length,
+                                                             (item, duplicate) -> item));
+        // {Wilma=5, Betty=5, Fred=4}
         System.out.println(collect);
     }
 }
