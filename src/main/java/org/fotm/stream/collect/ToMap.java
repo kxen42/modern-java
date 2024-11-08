@@ -19,6 +19,7 @@ public class ToMap {
         threeArgToMap();
         fourArgToMap();
         keyOnLengthOfString();
+        keyOnStreamElement();
     }
 
     /**
@@ -87,6 +88,21 @@ public class ToMap {
                                                      (s1, s2) -> String.join("|", s1, s2),
                                                      TreeMap::new
                                                  ));
+        System.out.println(collect);
+    }
+
+    public static void keyOnStreamElement() {
+        System.out.println(" ----- keyOnStreamElement");
+
+        Map<String, Integer> collect = Stream.of("cake", "cookie", "pie", "cake")
+                                             .collect(toMap(
+                                                 Function.identity(),
+                                                 s -> s.length(),
+                                                 (x,y) -> x + y,
+                                                 TreeMap::new
+                                             ));
+
+        // {cake=8, cookie=6, pie=3}
         System.out.println(collect);
     }
 }
