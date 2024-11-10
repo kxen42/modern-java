@@ -22,6 +22,7 @@ public class ToMap {
         keyOnStreamElement();
         usingFunctionIdentity();
         mitigatingDuplicateKeys();
+        countDuplicateLastNames();
     }
 
     /**
@@ -144,6 +145,19 @@ public class ToMap {
                                               .collect(toMap(Function.identity(), String::length,
                                                              (item, duplicate) -> item));
         // {Wilma=5, Betty=5, Fred=4}
+        System.out.println(collect);
+    }
+
+    public static void countDuplicateLastNames() {
+        System.out.println(" ----- countDuplicateLastNames");
+        Stream<String> lastNames = UserGenerator.createUsers()
+                                                   .stream()
+                                                   .map(User::getLastName);
+
+        Map<String, Integer> collect = lastNames.collect(toMap(Function.identity(), // key
+                                                               value -> 1, // value
+                                                               // do something with the value for duplicate keys
+                                                               Integer::sum)); // merge function
         System.out.println(collect);
     }
 }

@@ -11,7 +11,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
@@ -36,6 +38,8 @@ public class GroupingBy {
         mapOfMaps();
         customKeyValuePair();
         customCollector();
+        gatherOnlyTheDuplicateLastNamesAndCount();
+        gatherOnlyTheDuplicateLastNames();
     }
 
     /**
@@ -207,5 +211,35 @@ public class GroupingBy {
          */
         groupedByAgeAndNamesCustomCollector.forEach((age, members) -> System.out.println("Age: " + age + "; Members: " + members));
 
+    }
+
+    public static void gatherOnlyTheDuplicateLastNamesAndCount() {
+        System.out.println(" ----- gatherOnlyTheDuplicateLastNames");
+        Stream<String> lastNames = UserGenerator.createUsers()
+                                                .stream()
+                                                .map(User::getLastName);
+
+        Map<String, Long> lastNameCount = lastNames.collect(groupingBy(Function.identity(), Collectors.counting()));
+        lastNameCount.entrySet()
+                     .stream()
+                     .filter(entry -> entry.getValue() > 1)
+                     .toList()
+                     .forEach(System.out::println);
+    }
+
+    public static void gatherOnlyTheDuplicateLastNames() {
+        System.out.println(" ----- gatherOnlyTheDuplicateLastNames");
+        Stream<String> lastNames = UserGenerator.createUsers()
+                                                .stream()
+                                                .map(User::getLastName);
+
+        Map<String, Long> lastNameCount = lastNames.collect(groupingBy(Function.identity(), Collectors.counting()));
+        lastNameCount.entrySet()
+                     .stream()
+                     .filter(entry -> entry.getValue() > 1)
+                     .map(Map.Entry::getKey)
+                     .sorted()
+                     .toList()
+                     .forEach(System.out::println);
     }
 }
