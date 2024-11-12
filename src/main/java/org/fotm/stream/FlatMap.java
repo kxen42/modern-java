@@ -1,4 +1,4 @@
-package org.fotm.stream.collect;
+package org.fotm.stream;
 
 import org.fotm.model.Member;
 import org.fotm.model.MemberGenerator;
