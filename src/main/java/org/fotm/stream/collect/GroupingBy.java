@@ -193,9 +193,11 @@ public class GroupingBy {
                                                                                          groupingBy(
                                                                                              User::getAge,
                                                                                              toMap(u1 -> String.join(" ", u1.getFirstName(), u1.getLastName()),
-                                                                                                   u -> new Member(String.join(" ", u.getFirstName(), u.getLastName()),
-                                                                                                                   u.getAge(),
-                                                                                                                   u.getMemberFee()))));
+                                                                                                   u -> Member.builder()
+                                                                                                              .name(String.join(" ", u.getFirstName(), u.getLastName()))
+                                                                                                              .age(2)
+                                                                                                              .fee(BigDecimal.TEN)
+                                                                                                              .build())));
 
 
         /*
