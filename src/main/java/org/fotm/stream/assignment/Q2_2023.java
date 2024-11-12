@@ -20,11 +20,17 @@ public class Q2_2023 {
         IntStream exclusiveIntStream = IntStream.range(0, 5);
 
         OptionalDouble average = exclusiveIntStream.average();
-        System.out.println("average is 2.0 " + (average.getAsDouble() == 2.0));
+        System.out.println("average is 2.0: " + (average.getAsDouble() == 2.0));
 
         IntStream closedIntStream = IntStream.rangeClosed(0, 5);
         average = closedIntStream.average();
-        System.out.println("average is 2.5 " + (average.getAsDouble() == 2.5));
+        System.out.println("average is 2.5: " + (average.getAsDouble() == 2.5));
+
+        IntStream zeroes = IntStream.range(0, 0);
+        OptionalDouble average1 = zeroes.average();
+        System.out.println("isPresent: " + average1.isPresent());
+        System.out.println("isEmpty: " + average1.isEmpty());
+        System.out.println("value is 0.0: " + average1.orElse(0));
 
     }
 }
