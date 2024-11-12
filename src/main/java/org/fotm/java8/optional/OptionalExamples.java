@@ -1,4 +1,4 @@
-package org.fotm.java8;
+package org.fotm.java8.optional;
 
 import java.util.Optional;
 

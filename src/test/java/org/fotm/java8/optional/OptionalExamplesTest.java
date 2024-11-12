@@ -1,4 +1,4 @@
-package org.fotm.java8;
+package org.fotm.java8.optional;
 
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
