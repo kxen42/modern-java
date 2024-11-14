@@ -26,7 +26,7 @@ public class DoingStuffWithConsumer {
         System.out.println(" ----- Alternate way to print names and activities ");
         students.forEach(
             s -> printName.andThen(printActivities) // more consumer chaining
-                          .accept(s)
+                          .accept(s) // this kicks off the chain of consumer's like Hungarian notation
         );
     }
 }
