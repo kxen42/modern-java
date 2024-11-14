@@ -1,5 +1,7 @@
 package org.fotm.java8.biconsumer;
 
+import org.fotm.model.Customer;
+
 import java.util.Arrays;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
