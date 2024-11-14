@@ -7,20 +7,21 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
- * @see <a href="https://github.com/dilipsundarraj1/java-8/blob/82b732c40011b2bbcaacac7200f332b4a45641bc/java-8/src/com/learnJava/data/StudentDataBase.java">Course StudentDatabase</a>
  * @author Dilip.Sundarraj
  * @author kxen42
+ * @see <a href="https://github.com/dilipsundarraj1/java-8/blob/82b732c40011b2bbcaacac7200f332b4a45641bc/java-8/src/com/learnJava/data/StudentDataBase.java">Course StudentDatabase</a>
  */
 public class StudentGenerator {
 
     public static Supplier<Student> StudentSupplier = () -> Student.builder()
-                                                                          .activities(Arrays.asList("swimming", "basketball", "volleyball"))
-                                                                          .gender("male")
-                                                                          .gpa(4.0)
-        .grade(Student.Grade.A)
-                                                                          .gradeLevel(2)
-                                                                          .name("Adam")
-                                                                          .build();
+                                                                   .activities(Arrays.asList("swimming", "basketball", "volleyball"))
+                                                                   .gender("male")
+                                                                   .gpa(4.0)
+                                                                   .grade(Student.Grade.A)
+                                                                   .gradeLevel(2)
+                                                                   .name("Adam")
+                                                                   .build();
+
 
     public static Optional<Student> getStudentWithBike() {
 
@@ -29,7 +30,7 @@ public class StudentGenerator {
                                  .bike(Optional.of(new Bike("Client123", "Client123")))
                                  .gender("male")
                                  .gpa(4.0)
-            .grade(Student.Grade.A)
+                                 .grade(Student.Grade.A)
                                  .gradeLevel(2)
                                  .name("Adam")
                                  .build();
@@ -124,4 +125,6 @@ public class StudentGenerator {
         );
 
     }
+
+    public static void StudentSupplier() {}
 }
