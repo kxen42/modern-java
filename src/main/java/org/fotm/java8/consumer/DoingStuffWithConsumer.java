@@ -21,11 +21,11 @@ public class DoingStuffWithConsumer {
         students.forEach(printStudent);
 
         System.out.println(" ----- Print names and activities");
-        students.forEach(printName.andThen(printActivities));
+        students.forEach(printName.andThen(printActivities)); // consumer chaining
 
         System.out.println(" ----- Alternate way to print names and activities ");
         students.forEach(
-            s -> printName.andThen(printActivities)
+            s -> printName.andThen(printActivities) // more consumer chaining
                           .accept(s)
         );
     }
