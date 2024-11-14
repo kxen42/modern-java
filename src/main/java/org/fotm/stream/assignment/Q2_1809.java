@@ -22,9 +22,18 @@ public class Q2_1809 {
     public static void main(String[] args) {
         System.out.println(" ----- Q2_1809");
         List<Book> books = List.of(
-            new Book("Thinking in Java", 30.0),
-            new Book("Java in 24 hrs", 20.0),
-            new Book("Java Recipes", 10.0)
+            Book.builder()
+                .price(30.0)
+                .title("Thinking in Java")
+                .build(),
+            Book.builder()
+                .price(20.0)
+                .title("Java in 24 hrs")
+                .build(),
+            Book.builder()
+                .price(10.0)
+                .title("Java Recipes")
+                .build()
         );
 
         OptionalDouble average = books.stream()
