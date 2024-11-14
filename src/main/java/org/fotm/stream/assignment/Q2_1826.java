@@ -32,7 +32,7 @@ import java.util.Optional;
  * 2. <b>{@code Optional.of(null);}</b> throws {@code NullPointerException}<br>
  * 3. <b>{@code Optional.ofNullable(null);}</b> returns {@code Optional.empty}
  */
-public class Q_1826 {
+public class Q2_1826 {
 
     public static void main(String[] args) {
         System.out.println(" ----- Q_1826");
