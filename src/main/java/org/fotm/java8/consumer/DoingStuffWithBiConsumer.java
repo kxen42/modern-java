@@ -1,4 +1,4 @@
-package org.fotm.java8.biconsumer;
+package org.fotm.java8.consumer;
 
 import org.fotm.model.Customer;
 import org.fotm.model.CustomerGenerator;

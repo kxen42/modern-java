@@ -12,6 +12,9 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
 
+/**
+ * {@code Collectors.toMap} experiments.
+ */
 public class ToMap {
 
     public static void main(String[] args) {
@@ -26,7 +29,7 @@ public class ToMap {
     }
 
     /**
-     * Confident there is now duplicate keys.
+     * Confident there are now duplicate keys.
      */
     public static void twoArgToMap() {
         System.out.println(" ----- twoArgToMap");
@@ -123,20 +126,17 @@ public class ToMap {
         Betty:5
         Fred:4
          */
-        System.out.println("toMap type: " + toMap.getClass().getCanonicalName());
-        toMap.forEach((x,y) -> System.out.println(x + ":" + y));
+        System.out.println("toMap type: " + toMap.getClass()
+                                                 .getCanonicalName());
+        toMap.forEach((x, y) -> System.out.println(x + ":" + y));
     }
 
     /**
-     * Using the toMap that uses a function to determine how to handle duplicate keys.
-     * <p>
-     * If you get to the mergeFunction you have to args that are the same.
-     * <pre>
-     * toMap(Function<? super T,? extends K> keyMapper,
-     * Function<? super T,? extends U> valueMapper,
-     * BinaryOperator<U> mergeFunction)
-     * </pre>
+     * Using the {@code toMap} that uses a function to determine how to handle duplicate keys.
+     *
+     * @see <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/Collectors.html#toMap(java.util.function.Function,java.util.function.Function,java.util.function.BinaryOperator)">toMap for duplicate keys</a>
      */
+
     public static void mitigatingDuplicateKeys() {
         System.out.println(" ----- mitigatingDuplicateKeys");
         List<String> strings = List.of("Fred", "Fred", "Fred", "Wilma", "Wilma", "Betty");
@@ -151,8 +151,8 @@ public class ToMap {
     public static void countDuplicateLastNames() {
         System.out.println(" ----- countDuplicateLastNames");
         Stream<String> lastNames = UserGenerator.createUsers()
-                                                   .stream()
-                                                   .map(User::getLastName);
+                                                .stream()
+                                                .map(User::getLastName);
 
         Map<String, Integer> collect = lastNames.collect(toMap(Function.identity(), // key
                                                                value -> 1, // value

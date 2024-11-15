@@ -1,4 +1,4 @@
-package org.fotm.java8.biconsumer;
+package org.fotm.java8.consumer;
 
 import java.util.Arrays;
 import java.util.Collections;

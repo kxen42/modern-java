@@ -9,21 +9,18 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
+import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 
 /**
- * There's more to Predicate than just test().
+ * Experimenting with flavors of Predicate and its various methods.
  * <p>
- * Its got
- * {@code
- * Predicate<T> and(Predicate<? super T>)   What's with the <? super T> ?
- * Predicate<T> isEqual(Object)
- * Predicate<T> negate()
- * Predicate<T> or(Predicate<? super T>).   What's with the <? super T> ?
- * <p>
- * and boring old
- * boolean test(T)
- * }
+ * There's more to Predicate than just {@code test(T)}, there are primitive predicates
+ *
+ * @see <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Predicate.html">Predicate</a>
+ * @see <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/DoublePredicate.html">DoublePredicate</a>
+ * @see <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/IntPredicate.html">IntPredicate</a>
+ * @see <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/LongPredicate.html">LongPredicate</a>
  */
 public class DoingStuffWithPredicate {
 
@@ -109,6 +106,7 @@ public class DoingStuffWithPredicate {
     }
 
     private static void doFizzbuzz() {
+        System.out.println(" ----- doFizzbuzz");
         System.out.println("Fizzbuzz allowing blank lines using Predicate");
         System.out.println("What's a programming interview with out this little gem?");
         fizzbuzz(6);
@@ -127,8 +125,8 @@ public class DoingStuffWithPredicate {
 
     static void fizzbuzz(Integer num) {
         System.out.println(" ----- fizzbuzz for " + num);
-        Predicate<Integer> divisibleBy3 = x -> x % 3 == 0;
-        Predicate<Integer> divisibleBy5 = x -> x % 5 == 0;
+        IntPredicate divisibleBy3 = x -> x % 3 == 0;
+        IntPredicate divisibleBy5 = x -> x % 5 == 0;
 
         if (divisibleBy3.test(num))
             System.out.print("fizz");
@@ -139,8 +137,8 @@ public class DoingStuffWithPredicate {
 
     static void fizzbuzzNoBlankLines(Integer num) {
         // if there is no match print no match
-        Predicate<Integer> divisibleBy3 = x -> x % 3 == 0;
-        Predicate<Integer> divisibleBy5 = x -> x % 5 == 0;
+        IntPredicate divisibleBy3 = x -> x % 3 == 0;
+        IntPredicate divisibleBy5 = x -> x % 5 == 0;
 
         // Predicate chaining or.negate.test
         if (divisibleBy3.or(divisibleBy5)
