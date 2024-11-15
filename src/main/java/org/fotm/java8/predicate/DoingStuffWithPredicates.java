@@ -1,9 +1,8 @@
 package org.fotm.java8.predicate;
 
-import lombok.Data;
+import org.fotm.model.Car;
+import org.fotm.model.CarGenerator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiConsumer;
@@ -27,25 +26,26 @@ import java.util.function.Predicate;
  * }
  */
 public class DoingStuffWithPredicates {
+
+    public static final Consumer<Car> printCar = System.out::println;
+
     public static void main(String[] args) {
-        List<Car> cars = createCars();
+        List<Car> cars = CarGenerator.createCars();
         singlePredicate(cars);
-        System.out.println("--------------------------------------------------");
         biPredicate(cars);
-        System.out.println("--------------------------------------------------");
         doFizzbuzz();
-        System.out.println("--------------------------------------------------");
         predicateInFunction(cars);
-        System.out.println("--------------------------------------------------");
     }
 
     private static void biPredicate(List<Car> cars) {
-        System.out.println("Use BiPredicate, BiConsumer, Consumer");
+        System.out.println(" ----- biPredicate");
         System.out.println("High mileage Audis");
         BiPredicate<String, Double> yearMileage = (make, miles) -> miles > 80000;
 
+        // BiConsumer
         BiConsumer<Car, List<String>> spewDefects = (car, defects) -> System.out.println(car.getMake() + " | " + car.getYear() + " | " + defects);
 
+        // Consumer
         Consumer<Car> carConsumer = car -> {
             if (yearMileage.test(car.getMake(), car.getMileage())) {
                 spewDefects.accept(car, car.getDefects());
@@ -56,37 +56,46 @@ public class DoingStuffWithPredicates {
     }
 
     private static void singlePredicate(List<Car> cars) {
-        System.out.println("Use Predicate");
+        System.out.println(" -----singlePredicate");
         Predicate<Car> audis = c -> Objects.equals(c.getMake(), "Audi");
         Predicate<Car> fords = c -> Objects.equals(c.getMake(), "Ford");
         Predicate<Car> oldCar = c -> c.getYear() < 2000;
 
+        // Predicate chaining with 'and'
         System.out.println("Old Audis");
         cars.stream()
             .filter(audis.and(oldCar))
-            .forEach(System.out::println);
+            .forEach(printCar);
 
+        // Predicate 'negate'
         System.out.println("\nNewer Audis");
         cars.stream()
             .filter(oldCar.negate())
-            .forEach(System.out::println);
+            .forEach(printCar);
 
+        // Predicate 'isEqual'
         System.out.println("\nFind my car");
         cars.stream()
-            .filter(Predicate.isEqual(new Car("Ford", 1974, 200000.0)))
-            .forEach(System.out::println);
+            .filter(Predicate.isEqual(cars.get(4)))
+            .forEach(printCar);
 
+        // Predicate 'or'
         System.out.println("\nFords or old cars");
         cars.stream()
             .filter(fords.or(oldCar))
-            .forEach(System.out::println);
+            .forEach(printCar);
     }
 
     private static void predicateInFunction(List<Car> cars) {
+        System.out.println(" ----- predicateInFunction");
         System.out.println("'nesting' Predicate in BiFunction");
         System.out.println("Find rusty cars");
+
+        // Predicate
         Predicate<Car> rusty = (car) -> car.getDefects()
                                            .contains("rust");
+
+        // BiFunction<T, Predicate<T>>
         BiFunction<Car, Predicate<Car>, Car> carFunction = (car, predicate) -> {
             if (predicate.test(car)) {
                 return car;
@@ -96,7 +105,7 @@ public class DoingStuffWithPredicates {
 
         cars.stream()
             .filter(c -> carFunction.apply(c, rusty) != null)
-            .forEach(System.out::println);
+            .forEach(printCar);
     }
 
     private static void doFizzbuzz() {
@@ -117,6 +126,7 @@ public class DoingStuffWithPredicates {
     }
 
     static void fizzbuzz(Integer num) {
+        System.out.println(" ----- fizzbuzz for " + num);
         Predicate<Integer> divisibleBy3 = x -> x % 3 == 0;
         Predicate<Integer> divisibleBy5 = x -> x % 5 == 0;
 
@@ -132,6 +142,7 @@ public class DoingStuffWithPredicates {
         Predicate<Integer> divisibleBy3 = x -> x % 3 == 0;
         Predicate<Integer> divisibleBy5 = x -> x % 5 == 0;
 
+        // Predicate chaining or.negate.test
         if (divisibleBy3.or(divisibleBy5)
                         .negate()
                         .test(num)) return;
@@ -144,46 +155,4 @@ public class DoingStuffWithPredicates {
         System.out.println();
     }
 
-    private static List<Car> createCars() {
-        List<Car> cars = Arrays.asList(
-            new Car("Audi", 1963, 250000.9),
-            new Car("Audi", 2001, 90000.5),
-            new Car("Audi", 2015, 50150.4),
-            new Car("Ford", 1988, 16124.3),
-            new Car("Ford", 1974, 200000.0),
-            new Car("Ford", 2022, 76000.2)
-        );
-        cars.get(0)
-            .getDefects()
-            .addAll(Arrays.asList("rust", "cracked windshield", "no seatbelts", "flat front tires"));
-        cars.get(1)
-            .getDefects()
-            .addAll(Arrays.asList("torn driver side seat", "AM radio not working", "front springs kaput"));
-        cars.get(2)
-            .getDefects()
-            .add("chip in windshield");
-        cars.get(3)
-            .getDefects()
-            .addAll(Arrays.asList("shift know loose", "short in steering column", "spontaneous combustion", "rust"));
-        cars.get(4)
-            .getDefects()
-            .addAll(Arrays.asList("rust", "missing knobs", "Maverick"));
-        return cars;
-    }
-}
-
-@Data
-class Car {
-    private final String make;
-    private final Integer year;
-
-    private final Double mileage;
-
-    private final List<String> defects = new ArrayList<>();
-
-    public Car(String make, Integer year, Double mileage) {
-        this.make = make;
-        this.year = year;
-        this.mileage = mileage;
-    }
 }
