@@ -25,7 +25,7 @@ import java.util.function.Predicate;
  * boolean test(T)
  * }
  */
-public class DoingStuffWithPredicates {
+public class DoingStuffWithPredicate {
 
     public static final Consumer<Car> printCar = System.out::println;
 
