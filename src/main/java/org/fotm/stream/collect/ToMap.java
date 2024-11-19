@@ -1,8 +1,11 @@
 package org.fotm.stream.collect;
 
+import org.fotm.model.Customer;
+import org.fotm.model.CustomerGenerator;
 import org.fotm.model.User;
 import org.fotm.model.UserGenerator;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -17,6 +20,9 @@ import static java.util.stream.Collectors.toMap;
  */
 public class ToMap {
 
+    private static final List<User> users = UserGenerator.createUsers();
+    private static final List<Customer> customers = CustomerGenerator.createCustomers();
+
     public static void main(String[] args) {
         twoArgToMap();
         threeArgToMap();
@@ -26,6 +32,7 @@ public class ToMap {
         usingFunctionIdentity();
         mitigatingDuplicateKeys();
         countDuplicateLastNames();
+        filterAndToMap();
     }
 
     /**
@@ -33,7 +40,6 @@ public class ToMap {
      */
     public static void twoArgToMap() {
         System.out.println(" ----- twoArgToMap");
-        List<User> users = UserGenerator.createUsers();
 
         // map user to ID
         Map<UUID, User> collect = users.stream()
@@ -50,7 +56,6 @@ public class ToMap {
      */
     public static void threeArgToMap() {
         System.out.println(" ----- threeArgToMap");
-        List<User> users = UserGenerator.createUsers();
 
         Map<String, String> collect = users.stream()
                                            .collect(toMap(
@@ -68,7 +73,6 @@ public class ToMap {
      */
     public static void fourArgToMap() {
         System.out.println(" ----- fourArgToMap");
-        List<User> users = UserGenerator.createUsers();
 
         TreeMap<String, String> collect = users.stream()
                                                .collect(toMap(
@@ -160,4 +164,16 @@ public class ToMap {
                                                                Integer::sum)); // merge function
         System.out.println(collect);
     }
+
+    public static void filterAndToMap() {
+        System.out.println(" ----- filterAndToMap");
+        Map<String, List<Integer>> collect = customers.stream()
+                                                      .filter(c -> Arrays.asList(c.getOrders())
+                                                                         .contains(14))
+                                                      .collect(toMap(Customer::getName,
+                                                                     customer -> Arrays.asList(customer.getOrders()
+                                                                     )));
+        collect.forEach((k, v) -> System.out.println("key: " + k + ", v: " + v));
+    }
+
 }
