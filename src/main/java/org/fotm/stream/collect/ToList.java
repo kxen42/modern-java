@@ -27,5 +27,6 @@ public class ToList {
                                          .flatMap((c) -> Arrays.stream(c.getOrders()))
                                          .distinct()
                                          .toList();
+        System.out.println(collect);
     }
 }
