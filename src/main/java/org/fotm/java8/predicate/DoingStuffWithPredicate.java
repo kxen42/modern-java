@@ -12,6 +12,7 @@ import java.util.function.Consumer;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 
+
 /**
  * Experimenting with flavors of Predicate and its various methods.
  * <p>
@@ -26,12 +27,18 @@ public class DoingStuffWithPredicate {
 
     public static final Consumer<Car> printCar = System.out::println;
 
+    private static boolean isFord(Car car) {
+        return car.getMake()
+                  .equals("Ford");
+    }
+
     public static void main(String[] args) {
         List<Car> cars = CarGenerator.createCars();
         singlePredicate(cars);
         biPredicate(cars);
         doFizzbuzz();
         predicateInFunction(cars);
+        predicateAsMethodReference();
     }
 
     private static void biPredicate(List<Car> cars) {
@@ -151,6 +158,18 @@ public class DoingStuffWithPredicate {
             System.out.print("buzz");
 
         System.out.println();
+    }
+
+    public static void predicateAsMethodReference() {
+        System.out.println(" ----- predicateAsMethodReference");
+        Predicate<Car> predicateAsMethodRef = DoingStuffWithPredicate::isFord;
+
+        List<Car> cars = CarGenerator.createCars();
+
+        cars.stream()
+            .filter(predicateAsMethodRef)
+            .forEach(printCar);
+
     }
 
 }

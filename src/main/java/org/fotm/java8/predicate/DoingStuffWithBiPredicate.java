@@ -27,11 +27,18 @@ public class DoingStuffWithBiPredicate {
 
     private static final BiPredicate<String, String> equalsUpperCase = (s1, s2) -> s1.equals(s2.toUpperCase());
     private static final BiPredicate<String, String> equalsLowerCase = (s1, s2) -> s1.equals(s2.toLowerCase());
+    private static final BiPredicate<Customer, String> asMethodRefeference = DoingStuffWithBiPredicate::containsName;
+
+    private static boolean containsName(Customer customer, String name) {
+        return customer.getName()
+                       .contains(name);
+    }
 
     public static void main(String[] args) {
         compareIntegerAndString();
         compareUserAndCustomer();
         biPredicateChain();
+        biPredicateUsingMethodReference();
     }
 
     public static void compareIntegerAndString() {
@@ -66,5 +73,12 @@ public class DoingStuffWithBiPredicate {
             equalsUpperCase.or(equalsLowerCase)
                            .test("Yes", "YES")
         );
+    }
+
+    public static void biPredicateUsingMethodReference() {
+        System.out.println(" ----- biPredicateUsingMethodReference");
+        customers.stream()
+                 .filter(c -> asMethodRefeference.test(c, "Fred"))
+                 .forEach(System.out::println);
     }
 }
