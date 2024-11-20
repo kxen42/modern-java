@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.toMap;
 
 public class DoingStuffWithFunction {
 
-    private static final List<Student> students = StudentGenerator.createMultipleStudents();
+    private static final List<Student> students = StudentGenerator.createStudents();
 
     private static final BiPredicate<Student, Integer> isStudentInGradeLevel = (s, i) -> i.equals(s.getGradeLevel());
     private static final Function<List<Student>, Map<String, Student.Grade>> getStudentsForGradeLevel =

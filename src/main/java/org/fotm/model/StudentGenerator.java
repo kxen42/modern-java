@@ -39,7 +39,7 @@ public class StudentGenerator {
     }
 
 
-    public static List<Student> createMultipleStudents() {
+    public static List<Student> createStudents() {
         return Arrays.asList(
             Student.builder()
                    .activities(Arrays.asList("swimming", "basketball", "volleyball"))

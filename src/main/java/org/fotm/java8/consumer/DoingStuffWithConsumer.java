@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 public class DoingStuffWithConsumer {
 
     public static void main(String[] args) {
-        List<Student> students = StudentGenerator.createMultipleStudents();
+        List<Student> students = StudentGenerator.createStudents();
 
         Consumer<Student> studentConsumer = System.out::println;
         Consumer<Student> nameConsumer = s -> System.out.println(s.getName()
