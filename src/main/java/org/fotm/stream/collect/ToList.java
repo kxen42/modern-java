@@ -6,8 +6,6 @@ import org.fotm.model.CustomerGenerator;
 import java.util.Arrays;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 /**
  * {@code Collectors.toList()} experiments.
  * <b>Note:</b> since Java 16 this can be done using the {@code Stream.toList()} method.
