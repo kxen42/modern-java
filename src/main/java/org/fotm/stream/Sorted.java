@@ -1,5 +1,7 @@
 package org.fotm.stream;
 
+import org.fotm.model.Student;
+import org.fotm.model.StudentGenerator;
 import org.fotm.model.User;
 
 import java.io.IOException;
@@ -12,9 +14,16 @@ import java.util.stream.Stream;
 
 public class Sorted {
 
+    private static final List<Student> students = StudentGenerator.createStudents();
+
     public static void main(String[] args) {
         sortUsersByAge();
         sortUsersByCityAgeLastNameFirstName();
+        objectImplementsComparable();
+        reverseObjectImplementsComparable();
+        comparingField();
+        comparingFieldReversed();
+        complexComparator();
     }
 
     public static void sortUsersByAge() {
@@ -53,5 +62,42 @@ public class Sorted {
         } catch (IOException e) {
             return Collections.emptyList();
         }
+    }
+
+    public static void objectImplementsComparable() {
+        System.out.println(" ----- objectImplementsComparable");
+        students.stream()
+                .sorted()
+                .forEach(System.out::println);
+    }
+
+    public static void reverseObjectImplementsComparable() {
+        System.out.println(" ----- reverseObjectImplementsComparable");
+        students.stream()
+                .sorted(Comparator.reverseOrder()) // can't use method reference, don't confuse with Collection version
+                .forEach(System.out::println);
+    }
+
+    public static void comparingField() {
+        System.out.println(" ----- comparingField");
+        students.stream()
+                .sorted(Comparator.comparing(Student::getGpa))
+                .forEach(System.out::println);
+    }
+
+    public static void comparingFieldReversed() {
+        System.out.println(" ----- comparingFieldReversed");
+        students.stream()
+                .sorted(Comparator.comparing(Student::getGpa)
+                                  .reversed())
+                .forEach(System.out::println);
+    }
+
+    public static void complexComparator() {
+        System.out.println(" ----- complexComparator");
+        students.stream()
+                .sorted(Comparator.comparing(Student::getGender)
+                                  .thenComparingDouble(Student::getGpa))
+                .forEach(System.out::println);
     }
 }

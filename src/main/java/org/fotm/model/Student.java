@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,13 +20,22 @@ import java.util.Optional;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Student {
+public class Student implements Comparable<Student> {
     private String name;
     private int gradeLevel;
     private double gpa;
     private String gender;
     private int noteBooks;
     private Grade grade;
+
+    @Override
+    public int compareTo(Student o) {
+        return Comparator.comparing(Student::getGradeLevel)
+                         .thenComparing(Student::getGrade)
+                         .thenComparing(Student::getName)
+                         .compare(this, o);
+    }
+
     public enum Grade {A, B, C, D, F}
     private Optional<Bike> bike;
     private List<String> activities = new ArrayList<>();
