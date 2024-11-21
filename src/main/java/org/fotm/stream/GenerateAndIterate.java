@@ -5,18 +5,23 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.joining;
 
-public class InfiniteStreams {
+public class GenerateAndIterate {
     public static void main(String[] args) {
         iterateWithLimit();
         generate();
         fibonacci();
         skipSomeElements();
+//        iterateForever();
 
     }
 
-//    public static void iterateForever() {
-//        Stream<Integer> infinite = Stream.iterate(2, n -> n + 2);
-//    }
+    // Without a limit this will eventually go over the Integer.MAX_INTEGER, after that
+// it will only produce zero; same goes for Integer.MIN_INTEGER.
+    public static void iterateForever() {
+        System.out.println(" ----- iterateForever");
+        Stream.iterate(2, n -> n * 10000)
+              .forEach(System.out::println);
+    }
 
     public static void iterateWithLimit() {
         System.out.println(" ----- iterateWithLimit");
