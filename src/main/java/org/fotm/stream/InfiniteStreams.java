@@ -1,5 +1,6 @@
 package org.fotm.stream;
 
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.joining;
@@ -9,6 +10,7 @@ public class InfiniteStreams {
         iterateWithLimit();
         generate();
         fibonacci();
+        skipSomeElements();
 
     }
 
@@ -58,22 +60,34 @@ public class InfiniteStreams {
     /**
      * Given X[0] = 0 and X[1] = 1
      * Then
-     *      X[n] = X[n-1] + X[n-2]
+     * X[n] = X[n-1] + X[n-2]
      * For n > 1.
      * <br>
-     *     x[0] = 0
-     *     x[1] = 1
+     * x[0] = 0
+     * x[1] = 1
      * n = 2    X[2] = X[1] + X[0] = 1
      * n = 3    X[3] = X[2] + X[1] = 2
      */
     public static void fibonacci() {
         System.out.println(" ----- fibonacci");
         String fibonacciSequence = Stream.iterate(new int[]{0, 1}, f -> new int[]{f[1], f[0] + f[1]}) // Stream<int[]>
-                               .limit(15) // 15 int arrays in Stream<int[]>
-                               .map(arr -> Integer.toString(arr[0])) // Stream<String> the accumulator has the each fibonacci number
-                               .collect(joining(", "));
+                                         .limit(15) // 15 int arrays in Stream<int[]>
+                                         .map(arr -> Integer.toString(arr[0])) // Stream<String> the accumulator has the each fibonacci number
+                                         .collect(joining(", "));
         System.out.println(fibonacciSequence);
+    }
 
+    public static void skipSomeElements() {
+        System.out.println(" ----- skipSomeeElements");
+        Stream.iterate(0, x -> x + 1)
+              .limit(16)
+              .skip(10)
+              .forEach(x -> System.out.print(x + " "));
+        System.out.println();
 
+        IntStream.rangeClosed(0, 15)
+                 .skip(10)
+                 .forEach(x -> System.out.print(x + " "));
+        System.out.println();
     }
 }
