@@ -14,4 +14,9 @@ public class Book {
     private double price;
     private List<String> genres;
     private List<Person> authors;
+
+    public Book(String title, double price) {
+        this.title = title;
+        this.price = price;
+    }
 }
