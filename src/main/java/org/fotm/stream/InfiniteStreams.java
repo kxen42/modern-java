@@ -47,10 +47,10 @@ public class InfiniteStreams {
         //
         //      Supplier is a functional interface:
         //          T get()
-        Stream<Integer> infStream = Stream.generate(() -> (int) (Math.random() * 10))
-                                          .limit(10);
+        Stream<Integer> integerStream = Stream.generate(() -> (int) (Math.random() * 10))
+                                      .limit(10);
 
-        String result = infStream
+        String result = integerStream
             .map(x -> Integer.toString(x))
             .reduce("", (x, y) -> x.isEmpty() ? y : String.join(", ", x, y));
 
