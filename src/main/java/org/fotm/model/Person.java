@@ -8,4 +8,9 @@ import lombok.Data;
 public class Person {
     private String firstName, lastName;
     private Integer age;
+
+    public Person(Integer age, String firstName) {
+        this.age = age;
+        this.firstName = firstName;
+    }
 }
