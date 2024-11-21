@@ -1,11 +1,17 @@
 package org.fotm.stream.collect;
 
+import org.fotm.model.Student;
+import org.fotm.model.StudentGenerator;
+
+import java.util.List;
+import java.util.function.BinaryOperator;
 import java.util.stream.Stream;
 
 public class CollectOrReduceWithString {
     public static void main(String[] args) {
         usingReduce();
         usingCollect();
+        findFirstStudentWithHighestGpa();
     }
 
     public static void usingReduce() {
@@ -31,6 +37,32 @@ public class CollectOrReduceWithString {
                                                StringBuilder::append,
                                                StringBuilder::append);
         System.out.println(collect);
+
+    }
+
+    public static void findFirstStudentWithHighestGpa() {
+        System.out.println(" ----- findFirstStudentWithHighestGpa");
+        List<Student> students = StudentGenerator.createStudents();
+
+        BinaryOperator<Student> studentWithHigherGpa = (s1, s2) -> (s1.getGpa() >= s2.getGpa()) ? s1 : s2;
+
+        Student sorted = students.stream()
+                                 .sorted()
+                                 .peek(System.out::println)
+                                 .reduce(new Student(),
+                                         studentWithHigherGpa,
+                                         (x, y) -> x);
+        System.out.println("------------------------- sorted first student with highest GPA");
+        System.out.println(sorted);
+        System.out.println("-------------------------");
+
+        Student notSorted = students.stream()
+                                    .peek(System.out::println)
+                                    .reduce(new Student(),
+                                            studentWithHigherGpa,
+                                            (x, y) -> x);
+        System.out.println("------------------------- not sorted first student with highest GPA");
+        System.out.println(notSorted);
 
     }
 }
