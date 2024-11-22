@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Streams Assignment
+ * Assignment (QID 2.1787)
  * <p>
  * 3. Generate a {@code Stream<List<String>>} using the
  * {@code Stream.of(Arrays.asList(“a”, “b”), Arrays.asList("d", "c"), Arrays.asList(“a”, “c”))} method call.

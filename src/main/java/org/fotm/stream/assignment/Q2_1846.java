@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.toMap;
  * Iterate through <em>bookMap</em> (using the {@code Map forEach(BiConsumer)} method). The {@code BiConsumer}
  * only outputs price where the title begins with “A”.
  */
-public class Q_1846 {
+public class Q2_1846 {
 
     public static void main(String[] args) {
         List<Book> books = List.of(Book.builder()

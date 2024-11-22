@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
+ * Assignment (QID 2.1762)
+ * <p>
  * 2. Given the {@code Item} class (in the zip file), declare a List typed for Item with the following Item’s:
  * <pre>
  * a. id=1 name=”Screw”

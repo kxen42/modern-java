@@ -25,7 +25,7 @@ import static java.util.stream.Collectors.toMap;
  * </ol>
  * What happened and why? Fix this by using the {@code Collectors.toMap(Function, Function, BinaryOperator)} method.
  */
-public class Q_1847 {
+public class Q2_1847 {
     public static void main(String[] args) {
         List<Book> books = Arrays.asList(new Book("Gone with the wind", 5.0),
                                         new Book("Gone with the wind", 10.0),
