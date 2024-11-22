@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -18,5 +19,10 @@ public class Book {
     public Book(String title, double price) {
         this.title = title;
         this.price = price;
+    }
+
+    public Book(String title, String genre) {
+        this.title = title;
+        this.genres = Collections.singletonList(genre);
     }
 }
