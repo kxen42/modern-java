@@ -24,6 +24,9 @@ public class Q2_1840 {
     public static void a() {
         System.out.println(" ----- a");
         List<Integer> ls = Arrays.asList(11, 11, 22, 33, 33, 55, 66);
+
+        // Java only generates the amount of stream you need (lazy evaluation).
+        // That means that for anyMatch, it quits processing the stream the first time one is 11.
         boolean b = ls.stream()
                       .distinct()
                       .anyMatch(i -> i == 11);
@@ -35,9 +38,9 @@ public class Q2_1840 {
         System.out.println(" ----- b");
         List<Integer> ls = Arrays.asList(11, 11, 22, 33, 33, 55, 66);
         boolean b = ls.stream()
-                      .anyMatch(x -> x % 11 == 0);
+                      .noneMatch(x -> x % 11 > 0);
 
-        System.out.println("do anyMatch x % 11? " + b);
+        System.out.println("do anyMatch x % 11 > 0? " + b);
 
     }
 }
