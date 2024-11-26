@@ -44,6 +44,7 @@ public class CarGenerator {
                .make("Toyota")
                .year(2024)
                .mileage(1000.0)
+               .defects(Collections.emptyList())
                .build()
         );
     }
