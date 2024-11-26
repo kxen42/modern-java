@@ -7,6 +7,7 @@ import org.fotm.model.User;
 import org.fotm.model.UserGenerator;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +58,7 @@ public class GroupingBy {
         gatherOnlyTheDuplicateLastNames();
         groupingStudentsByGender();
         groupingByDerivedClassifier();
+        groupingByGradeGroupingByGradeLevel();
     }
 
     /**
@@ -306,6 +308,13 @@ public class GroupingBy {
                      .forEach(System.out::println);
     }
 
+    /**
+     * <pre>
+     * Flintstone
+     * Jetson
+     * Rubble
+     * </pre>
+     */
     public static void gatherOnlyTheDuplicateLastNames() {
         System.out.println(" ----- gatherOnlyTheDuplicateLastNames");
         Stream<String> lastNames = UserGenerator.createUsers()
@@ -322,6 +331,13 @@ public class GroupingBy {
                      .forEach(System.out::println);
     }
 
+
+    /**
+     * female
+     * [Student(name=Jenny, gradeLevel=2, gpa=3.8, ...), Student(name=Emily, gradeLevel=3, gpa=4.0, ...), ...]
+     * male
+     * [Student(name=Adam, gradeLevel=2, gpa=3.6, ...), Student(name=Dave, gradeLevel=3, gpa=4.0, ...), ...]
+     */
     public static void groupingStudentsByGender() {
         System.out.println(" ----- groupingStudentsByGender");
         Map<String, List<Student>> collect = students.stream()
@@ -333,6 +349,18 @@ public class GroupingBy {
         });
     }
 
+    /**
+     * <pre>
+     * Risk Assessment: On Track
+     * 	Students: Sophia
+     * Risk Assessment: Below Grade
+     * 	Students: Bubba
+     * Risk Assessment: College Bond
+     * 	Students: Adam, Jenny, Emily, Dave, James
+     * Risk Assessment: At Risk
+     * 	Students: Elmore, Gomer
+     * </pre>
+     */
     public static void groupingByDerivedClassifier() {
         System.out.println(" ----- groupingByDerivedClassifier");
         Map<String, List<Student>> collect = students.stream()
@@ -347,8 +375,43 @@ public class GroupingBy {
                  }));
 
         collect.forEach((k,v) -> {
-            System.out.println(k);
-            System.out.println(v);
+            System.out.println("Risk Assessment: " + k);
+            String names = v.stream()
+                            .map(Student::getName)
+                            .collect(Collectors.joining(", "));
+            System.out.println("\tStudents: " + names);
         });
+    }
+
+    /**
+     * Result:
+     * <pre>
+     *     Grade: A
+     * 	        Grade Level: 2
+     * 		        Students: Jenny
+     * 	        Grade Level: 3
+     * 		        Students: Dave, Emily
+     * 	        Grade Level: 4
+     * 		        Students: Bubba, James
+     * 		Grade: B ...
+     * </pre>
+     */
+    public static void groupingByGradeGroupingByGradeLevel() {
+        System.out.println(" ----- groupingByGradeLevelGroupingByGrade");
+        var collect = students.stream()
+                              .collect(groupingBy(Student::getGrade,
+                                                  groupingBy(Student::getGradeLevel,
+                                                             mapping(Student::getName, toCollection(TreeSet::new)))));
+
+        List<Map.Entry<Student.Grade, Map<Integer, TreeSet<String>>>> toSort = new ArrayList<>(collect.entrySet());
+        toSort.sort(Map.Entry.comparingByKey());
+        for (Map.Entry<Student.Grade, Map<Integer, TreeSet<String>>> e : toSort) {
+            System.out.println("Grade: " + e.getKey());
+            e.getValue()
+             .forEach((key, value) -> {
+                 System.out.println("\tGrade Level: " + key);
+                 System.out.println("\t\tStudents: " + String.join(", ", value));
+             });
+        }
     }
 }
