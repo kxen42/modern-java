@@ -1,6 +1,8 @@
 package org.fotm.stream.collect;
 
 import org.fotm.model.Member;
+import org.fotm.model.Student;
+import org.fotm.model.StudentGenerator;
 import org.fotm.model.User;
 import org.fotm.model.UserGenerator;
 
@@ -22,10 +24,23 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.Collectors.toSet;
 
+/**
+ * {@code Collectors.groupingBy} examples.
+ *
+ * <pre>{@code
+ * Collectors.groupingBy(classifier)
+ * Collectors.groupingBy(classifier, downstream)
+ * Collectors.groupingBy(classifier, mapFactory, downstream)
+ *      classified = Function
+ *      downstream = Collector
+ *      mapFactory = Supplier
+ * }</pre>
+ */
 public class GroupingBy {
 
 
     private static final List<User> users = UserGenerator.createUsers();
+    private static final List<Student> students = StudentGenerator.createStudents();
 
     public static void main(String[] args) {
         oneArg();
@@ -40,10 +55,16 @@ public class GroupingBy {
         customCollector();
         gatherOnlyTheDuplicateLastNamesAndCount();
         gatherOnlyTheDuplicateLastNames();
+        groupingStudentsByGender();
+        groupingByDerivedClassifier();
     }
 
     /**
      * Find members of each surname.
+     * <p>
+     * classifier is {@code User::getLastName}
+     * <p>
+     * Result: {@code Map<LastName, List<User>>}
      */
     public static void oneArg() {
         System.out.println(" ----- oneArg");
@@ -57,6 +78,11 @@ public class GroupingBy {
 
     /**
      * Find average by surname.
+     * <p>
+     * classifier is {@code User::getLastName}<br>
+     * downstream is {@code Collectors.averagingInt(User::getAge)}
+     * <p>
+     * Result: {@code Map<LastName, average-age>}
      */
     public static void twoArgsAndApplyCollector() {
         System.out.println(" ----- twoArgsAndApplyCollector");
@@ -71,11 +97,26 @@ public class GroupingBy {
 
     /**
      * Find the distinct surnames for each city.
-     * toSet silently skips duplicates
+     * toSet silently skips duplicates.
+     * <p>
+     * classifier is {@code User::getCity}<br>
+     * supplier is {@code TreeMap::new}<br>
+     * downstream is {@code Collectors.mapping(User::getLastName, toSet())}
+     * <p>
+     * Result is: {@code TreeMap<City, Set<LastName>>}
+     * <p>
+     * Second version uses:
+     * <p>
+     * classifier is {@code User::getCity}<br>
+     * supplier is {@code TreeMap::new}<br>
+     * downstream is {@code Collectors.mapping(User::getLastName, toList())}
+     * <p>
+     * Result: {@code TreeMap<City, List<User>>}
      */
     public static void threeArg() {
         System.out.println(" ----- threeArg");
 
+        System.out.println("mapping to TreeMap<City, Set<LastName>>");
         TreeMap<String, Set<String>> distinct = users.stream()
                                                      .collect(
                                                          groupingBy(User::getCity,
@@ -84,6 +125,7 @@ public class GroupingBy {
 
         System.out.println(distinct);
 
+        System.out.println("mapping to TreeMap<City, List<User>>");
         TreeMap<String, List<User>> usersGroupByCity = users.stream()
                                                             .collect(
                                                                 groupingBy(User::getCity,
@@ -93,6 +135,11 @@ public class GroupingBy {
     }
 
 
+    /**
+     * classifier is {@code User::getAge}
+     * <p>
+     * Result: {@code Map<Age, List<User>}
+     */
     public static void groupByAge() {
         System.out.println(" ----- groupByAge");
 
@@ -101,6 +148,12 @@ public class GroupingBy {
         groupedByAge.forEach((age, theUsers) -> System.out.println("Age: " + age + ", users:" + theUsers));
     }
 
+    /**
+     * classifier is {@code User::getAge}<br>
+     * downstream is {@code Collectors.counting()}
+     * <p>
+     * Result:{@code Map<Age, number-of-users-with-Age}
+     */
     public static void determineNumberOfUsersByAge() {
         System.out.println(" ----- determineNumberOfUsersByAge");
         Map<Integer, Long> numUsersByAge = users.stream()
@@ -113,6 +166,12 @@ public class GroupingBy {
                                   System.out.println("Age: " + age + ", count: " + count));
     }
 
+    /**
+     * classifier is {@code User::getCity}<br>
+     * downstream is {@code mapping(User::getLastName, Collectors.toCollection(TreeSet::new)}
+     * <p>
+     * Result: {@code Map<City, TreeSet<LastName>>}
+     */
     public static void findDistinctOrdersSurnamesForCity() {
         System.out.println(" ----- findDistinctSurnamesForCity");
 
@@ -125,6 +184,14 @@ public class GroupingBy {
 
     }
 
+    /**
+     * classifier is {@code (u) -> u.getMemberFee() == null ? BigDecimal.ZERO : u.getMemberFee()}<br>
+     * supplier is {@code HashMap::new}<br>
+     * downstream is {@code Collectors.mapping((uu) -> String.join(" ", uu.getFirstName(), uu.getLastName()),
+     *                                                                      toList())}
+     * <p>
+     * Result: {@code Map<MemberFee, List<full-member-name>>}
+     */
     public static void mapOfLists() {
         System.out.println(" ----- mapOfLists");
         HashMap<BigDecimal, List<String>> collect = users.stream()
@@ -142,6 +209,12 @@ public class GroupingBy {
         System.out.println(collect);
     }
 
+    /**
+     * classifier is {@code User::getMemberFee}<br>
+     * downstream is {@code Collectors.toMap(full-name, MemberFee, ...)}
+     * <p>
+     * Result: {@code Map<MemberFee, TreeMap<full-user-name, MemberFee>>}
+     */
     public static void mapOfMaps() {
         System.out.println(" ----- mapOfMaps");
         Map<BigDecimal, TreeMap<String, BigDecimal>> collect = users.stream()
@@ -161,6 +234,10 @@ public class GroupingBy {
         System.out.println(collect);
     }
 
+    /**
+     * classifier is {@code User::Age}<br>
+     * downstream is {@code Collectors.toMap(firstName, Age}
+     */
     public static void customKeyValuePair() {
         // Grouping by Age and Collecting to a Map with Custom Key-Value Pair
         System.out.println(" ----- customKeyValuePair");
@@ -243,5 +320,35 @@ public class GroupingBy {
                      .sorted()
                      .toList()
                      .forEach(System.out::println);
+    }
+
+    public static void groupingStudentsByGender() {
+        System.out.println(" ----- groupingStudentsByGender");
+        Map<String, List<Student>> collect = students.stream()
+                                                     .collect(groupingBy(Student::getGender));
+
+        collect.forEach((k,v) -> {
+            System.out.println(k);
+            System.out.println(v);
+        });
+    }
+
+    public static void groupingByDerivedClassifier() {
+        System.out.println(" ----- groupingByDerivedClassifier");
+        Map<String, List<Student>> collect = students.stream()
+                 .collect(groupingBy(s -> {
+                     if (s.getGpa() >= 3.6)
+                         return "College Bond";
+                     if (s.getGpa() > 3.0)
+                         return "On Track";
+                     if (s.getGpa() > 2.0)
+                         return "Below Grade";
+                     return "At Risk";
+                 }));
+
+        collect.forEach((k,v) -> {
+            System.out.println(k);
+            System.out.println(v);
+        });
     }
 }
