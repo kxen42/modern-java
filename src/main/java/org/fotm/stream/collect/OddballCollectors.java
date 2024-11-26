@@ -14,8 +14,15 @@ import java.util.HashMap;
 import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.LongSummaryStatistics;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.maxBy;
+import static java.util.stream.Collectors.minBy;
 
 public class OddballCollectors {
 
@@ -29,6 +36,8 @@ public class OddballCollectors {
         teeingMinAndMax();
         teeingAndFiltering();
         teeingToSingleString();
+        groupingByIntoMayBy();
+        groupingByNameToGetStudentByMinGpa();
     }
 
     /**
@@ -110,8 +119,8 @@ public class OddballCollectors {
     public static void teeingMinAndMax() {
         System.out.println(" ----- teeingMinAndMax");
         HashMap<String, Integer> map = cars.stream()
-                                           .collect(Collectors.teeing(Collectors.minBy(Comparator.comparing(Car::getYear)),
-                                                                      Collectors.maxBy(Comparator.comparing(Car::getYear)),
+                                           .collect(Collectors.teeing(minBy(Comparator.comparing(Car::getYear)),
+                                                                      maxBy(Comparator.comparing(Car::getYear)),
                                                                       (optionalMinCar, optionalMaxCar) -> {
                                                                           HashMap<String, Integer> result = new HashMap<>();
                                                                           result.put("MIN", optionalMinCar.isPresent() ? optionalMinCar.get()
@@ -187,5 +196,35 @@ public class OddballCollectors {
                             ));
 
         System.out.println(result);
+    }
+
+    /**
+     *
+     */
+    public static void groupingByIntoMayBy() {
+        System.out.println(" ----- groupingByIntoMayBy");
+        Map<Integer, Optional<Student>> studentsWithHighestGpa = students.stream()
+                                                                         .collect(groupingBy(Student::getGradeLevel,
+                                                                                             maxBy(Comparator.comparing(Student::getGpa))));
+
+        studentsWithHighestGpa.forEach((gradeLevel, student) -> {
+            System.out.println("gradeLevel: " + gradeLevel + ", gpa: " + (student.isPresent() ? student.get()
+                                                                                                       .getGpa() : "no max gpa"));
+        });
+    }
+
+    /**
+     * Using {@code groupingBy} to get the student names and {@code Collectors.minBy} to get the lowest and using
+     * {@code collectingAndThen(minBy, Optional::get)} to avoid dealing with {@code Optional} later.
+     */
+    public static void groupingByNameToGetStudentByMinGpa() {
+        System.out.println(" ----- groupingByNameToGetStudentByMinGpa");
+        Map<Integer, Student> studentsWithLowedGpas = students.stream()
+                                                              .collect(groupingBy(Student::getGradeLevel,
+                                                                                  collectingAndThen(minBy(Comparator.comparing(Student::getGpa)), Optional::get)
+                                                              ));
+        studentsWithLowedGpas.forEach((gradeLevel, student) -> {
+            System.out.println("gradeLevel: " + gradeLevel + ", gpa: " + student.getGpa());
+        });
     }
 }
