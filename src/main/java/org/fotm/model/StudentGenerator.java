@@ -13,8 +13,9 @@ import java.util.function.Supplier;
  */
 public class StudentGenerator {
 
-    public static Supplier<Student> StudentSupplier = () -> Student.builder()
+    public static Supplier<Student> studentSupplier = () -> Student.builder()
                                                                    .activities(Arrays.asList("swimming", "basketball", "volleyball"))
+                                                                   .bike(Optional.ofNullable(null))
                                                                    .gender("male")
                                                                    .gpa(4.0)
                                                                    .grade(Student.Grade.A)
@@ -23,21 +24,18 @@ public class StudentGenerator {
                                                                    .build();
 
 
-    public static Optional<Student> getStudentWithBike() {
+    public static Supplier<Student> studentSupplierWithBike = () ->
+        Student.builder()
+               .activities(Arrays.asList("swimming", "basketball", "volleyball"))
+               .bike(Optional.of(new Bike("Big Hunk of Metal", "Schwinn")))
+               .gender("male")
+               .gpa(4.0)
+               .grade(Student.Grade.A)
+               .gradeLevel(2)
+               .name("Stewie")
+               .build();
 
-        Student student = Student.builder()
-                                 .activities(Arrays.asList("swimming", "basketball", "volleyball"))
-                                 .bike(Optional.of(new Bike("Client123", "Client123")))
-                                 .gender("male")
-                                 .gpa(4.0)
-                                 .grade(Student.Grade.A)
-                                 .gradeLevel(2)
-                                 .name("Adam")
-                                 .build();
-
-        return Optional.of(student);
-    }
-
+    public static Supplier<Bike> supplierBike = () -> new Bike("new bike", "Trek");
 
     public static List<Student> createStudents() {
         return Arrays.asList(
