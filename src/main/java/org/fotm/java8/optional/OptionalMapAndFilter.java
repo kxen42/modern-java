@@ -79,6 +79,7 @@ public class OptionalMapAndFilter {
 
     /**
      * {@code Optional.flatMap} does not wrap the value if is already wrapped in {@code Optional}.
+     * {@code flatMap} is used to get to the value of something already wrapped in an {@code Optional}.
      *
      * @param isFound
      */
@@ -97,7 +98,8 @@ public class OptionalMapAndFilter {
     }
 
     /**
-     * {@code Optional.pap} always wraps value in {@code Optional} even if it is already wrapped in {@code Optional}.
+     * {@code Optional.map} always wraps value in {@code Optional} even if it is already wrapped in {@code Optional}.
+     * {@code map} lets you wrap something in {@code Optional}.
      *
      * @param isFound
      */
