@@ -16,70 +16,68 @@ package org.fotm.java17.misc;
  *     <li>private static methods</li>
  * </ul>
  * <p>
- * The {@code Tennis} interface is mostly from Sean Kennedy.
+ * The {@code NestedInterfaceInClass} interface is mostly from Sean Kennedy.
  * The McEnroe stuff is all mine.
  */
-public class PrivateInterfaceMethods {
+public class PrivateInterfaceMethods implements NewInterfaceFeatures {
 
     public static void main(String[] args) {
-        TestInterfaces ti = new TestInterfaces();
+        PrivateInterfaceMethods instance = new PrivateInterfaceMethods();
 
-        ti.mcEnroe(); // boiler plate
+        NestedInterfaceInClassImpl tennisImpl = new NestedInterfaceInClassImpl();
+        tennisImpl.mcEnroe(); // boiler plate
+        tennisImpl.forehand(); // default methods
+        NestedInterfaceInClass.backhand(); // public static method
+        tennisImpl.defaultMethod(" NewInterfaceFeatures default method");
+//        tennisImpl.smash(); <---- no can do with private method
 
-        ti.forehand(); // default methods
+        // I did not expect this; NestedInterfaceInClass is a nested interface
+        NestedInterfaceInClass.hit(" {fuzzy ball Why does this work?} ");  // <---- private static method Why can I do this?
 
-        // I did not expect this
-        Tennis.hit("fuzzy ball");  // public static method Why can I do this?
-
-        Tennis.backhand(); // public static methods
-
-//        ti.smash(); no can do with private method
+        NewInterfaceFeatures.NestedInterfaceInInterface.publicStaticMethod();
     }
 
-    public interface LookWhatICanDo {
+
+    // Nested interface, static is implied so it is redundant here
+    // Nested interface must be public and static
+    public interface NestedInterfaceInClass {
         int nothingNew = 42;
+        // static int CONSTANT = 5; <---- static is redundant here
+        // private int i = 4;       <---- still forbidden
+
+        private static void hit(String stroke) {
+            System.out.println("Hitting a " + stroke + " (hit is private static) ");
+        }
+
+        static void backhand() {
+            hit("backhand (backhand is public static) ");
+        }
 
         void beenThereDoneThat();
 
         // default methods are always public
         default String defaultMethod(String str) {
-            return "the defaultMethod says " + str;
-        }
-    }
-
-    public interface Tennis {
-        private static void hit(String stroke) {
-            System.out.println("Hitting a " + stroke);
+            return " the public defaultMethod says " + str;
         }
 
-        static void backhand() {
-            hit("backhand");
-        }
+        private void smash() {hit("smash (smash is private) ");}
 
-        private void smash() {hit("smash");}
-
-        default void forehand() {hit("forehand");}
+        default void forehand() {hit("forehand (forehand is public default) ");}
 
         default void mcEnroe() {
+            System.out.println(" (mcEnroe is public default) ");
             smash();
             yellAtRef();
             throwRacket();
         }
 
         private void yellAtRef() {
-            System.out.println("Are you blind!");
+            System.out.println("Are you blind! (yellAtRef is private) ");
         }
 
         private void throwRacket() {
-            System.out.println("Watch me throw my racket on the ground!");
+            System.out.println("Watch me throw my racket on the ground! (throwRacket is private) ");
         }
     }
 
-    public static class TestInterfaces implements LookWhatICanDo, Tennis {
-
-        @Override
-        public void beenThereDoneThat() {
-            System.out.println("old fashioned interface");
-        }
-    }
 }
