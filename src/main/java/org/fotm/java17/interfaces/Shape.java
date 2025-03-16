@@ -1,6 +1,6 @@
 package org.fotm.java17.interfaces;
 
-public sealed interface Shape  permits Circle, Square{
+public sealed interface Shape  permits Circle, Square, Triangle {
     String name();
 
     default void spewName() {

@@ -1,4 +1,4 @@
-package org.fotm.java17.misc;
+package org.fotm.java17.sealed;
 
 public class SealedClasses {
 
@@ -32,7 +32,7 @@ public class SealedClasses {
     }
 
     // no surprise you can extend a non-sealed class
-    class RedAudio extends Audi {
+    class RedAudi extends Audi {
     }
 
     // a sealed class MUST have subclasses
@@ -46,7 +46,7 @@ public class SealedClasses {
     public non-sealed class Truck implements Driveable {
     }
 
-    // no suprise that final class still doesn't need subclass
+    // no surprise that final class still doesn't need subclass
     // even if it implements a sealed interface
     public final class Golfcart implements Driveable {
     }

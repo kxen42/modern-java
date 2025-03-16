@@ -38,7 +38,7 @@ public class CarGenerator {
                .mileage(200000.0)
                .defects(Arrays.asList("can see road through rust hole",
                                       "plastic bags in trunk to keep water out",
-                                      "Maverick enough said"))
+                                      "Ford enough said"))
                .build(),
             Car.builder()
                .make("Toyota")
