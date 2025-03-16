@@ -1,8 +1,8 @@
 package org.fotm.java17.misc;
 
 import org.fotm.java17.interfaces.Polygon;
-import org.fotm.java17.record.Hexagon;
-import org.fotm.java17.record.Octagon;
+import org.fotm.java17.interfaces.Hexagon;
+import org.fotm.java17.interfaces.Octagon;
 
 public class RecordPatternMatching {
 
@@ -23,7 +23,7 @@ public class RecordPatternMatching {
             case null -> "(NIL)";
             case Hexagon(var size, var name) -> name;
             case Octagon(var size, var color, var name) -> name;
-            default -> "unknown";
+            // don't need default because we have case for every permitted Polygon type
         };
     }
 

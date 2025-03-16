@@ -1,5 +1,5 @@
 package org.fotm.java17.interfaces;
 
-public non-sealed interface Polygon extends Shape {
+public sealed interface Polygon extends Shape permits Hexagon, Octagon{
     int numberOfSides();
 }
