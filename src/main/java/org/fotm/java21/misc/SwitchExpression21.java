@@ -15,6 +15,7 @@ public class SwitchExpression21 {
         var result = switch(shape) {
             case Circle c -> c.name() + "K";
             case Square sq -> sq.name()  + "pants";
+            default -> "default";
         };
         System.out.println("Look what I can do " + result);
     }
