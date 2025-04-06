@@ -1,4 +1,4 @@
-package org.fotm.java17.interfaces;
+package org.fotm.java17.sealed;
 
 public sealed interface Shape permits Circle, Square, Triangle, Polygon {
     String name();

@@ -1,6 +1,4 @@
-package org.fotm.java17.record;
-
-import org.fotm.java17.interfaces.Polygon;
+package org.fotm.java17.sealed;
 
 public record Octagon(String size, String color, String name) implements Polygon {
     // Not that name generates a name() method which makes need to implement name() happy

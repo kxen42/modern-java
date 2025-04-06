@@ -1,8 +1,8 @@
 package org.fotm.java21.misc;
 
-import org.fotm.java17.interfaces.Circle;
-import org.fotm.java17.interfaces.Shape;
-import org.fotm.java17.interfaces.Square;
+import org.fotm.java17.sealed.Circle;
+import org.fotm.java17.sealed.Shape;
+import org.fotm.java17.sealed.Square;
 
 public class SwitchExpression21 {
     public static void main(String[] args) {

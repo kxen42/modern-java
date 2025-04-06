@@ -1,4 +1,4 @@
-package org.fotm.java17.interfaces;
+package org.fotm.java17.sealed;
 
 public final class Square implements Shape {
 

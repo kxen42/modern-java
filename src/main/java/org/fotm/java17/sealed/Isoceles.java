@@ -1,7 +1,5 @@
 package org.fotm.java17.sealed;
 
-import org.fotm.java17.interfaces.Triangle;
-
 public class Isoceles implements Triangle {
     @Override
     public String name() {
