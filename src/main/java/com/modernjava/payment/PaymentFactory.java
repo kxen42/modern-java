@@ -12,6 +12,7 @@ public final class PaymentFactory {
             case DEBIT -> new DebitCardPayment();
             case CREDIT -> new CreditCardPayment();
             case REWARDS -> new RewardsCardPayment();
+            case null -> throw new IllegalArgumentException("Card type is required");
         };
     }
 }
