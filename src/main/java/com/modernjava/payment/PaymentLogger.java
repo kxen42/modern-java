@@ -6,6 +6,9 @@ import com.modernjava.domain.PaymentResponse;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * This all my stuff.
+ */
 public final class PaymentLogger {
 
 
@@ -20,6 +23,6 @@ public final class PaymentLogger {
     }
 
     public static void logResponse(Class<?> clazz, PaymentResponse response) {
-        System.out.printf("Making %s response: %s%n", clazz.getSimpleName(), response);
+        System.out.printf("Making %s, got response: %s%n", clazz.getSimpleName(), response);
     }
 }

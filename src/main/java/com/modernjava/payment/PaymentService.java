@@ -1,16 +1,20 @@
 package com.modernjava.payment;
 
-import com.modernjava.domain.*;
-import com.modernjava.payment.*;
+import com.modernjava.domain.OrderDetails;
+import com.modernjava.domain.PaymentResponse;
 
 /**
- * From Udemy course https://www.udemy.com/course/modern-java-learn-java-8-features-by-coding-it/learn/lecture/47618911#overview
+ * From Udemy course
+ * <a href="https://www.udemy.com/course/modern-java-learn-java-8-features-by-coding-it/learn/lecture/47618911#overview">Udemy course</a>
  */
 public class PaymentService {
 
     public PaymentResponse makePaymentv2(OrderDetails orderDetails) {
 
-        //implement a payment gateway that can handle the different kinds of payment.
-        return PaymentResponse.SUCCESS;
+        var paymentGateway = PaymentFactory.paymentGateway(orderDetails.card()
+                                                                       .cardType());
+        var r = paymentGateway.makePayment(orderDetails.card(), orderDetails.finalAmount());
+        PaymentLogger.logResponse(paymentGateway.getClass(), r);
+        return r;
     }
 }

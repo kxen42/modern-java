@@ -1,10 +1,12 @@
 package com.modernjava;
 
 import com.modernjava.domain.Card;
+import com.modernjava.domain.OrderDetails;
 import com.modernjava.payment.CreditCardPayment;
 import com.modernjava.payment.DebitCardPayment;
 import com.modernjava.payment.PaymentFactory;
 import com.modernjava.payment.PaymentLogger;
+import com.modernjava.payment.PaymentService;
 import com.modernjava.payment.RewardsCardPayment;
 
 import java.math.BigDecimal;
@@ -13,9 +15,13 @@ import static com.modernjava.domain.CardType.CREDIT;
 import static com.modernjava.domain.CardType.DEBIT;
 import static com.modernjava.domain.CardType.REWARDS;
 
+/**
+ * This is all mine because I didn't want to write tests.
+ */
 public class Main {
 
     public static void main(String[] args) {
+        // generate one of each type of card
         Card dbCard = new Card("Fred", "4629249031789528", "code", "12/28", DEBIT);
         var r = PaymentFactory.paymentGateway(DEBIT)
                               .makePayment(dbCard, BigDecimal.TEN);
@@ -30,5 +36,15 @@ public class Main {
         r = PaymentFactory.paymentGateway(REWARDS)
                           .makePayment(rewards, BigDecimal.valueOf(33.5));
         PaymentLogger.logResponse(RewardsCardPayment.class, r);
+
+
+        // create debut card order
+        OrderDetails orderDetails = new OrderDetails("12345", dbCard, BigDecimal.valueOf(42.42));
+        System.out.println(orderDetails);
+
+        // call payment service for debit card
+        PaymentService paymentService = new PaymentService();
+        paymentService.makePaymentv2(orderDetails);
+
     }
 }

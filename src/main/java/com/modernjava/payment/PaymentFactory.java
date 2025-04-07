@@ -2,6 +2,10 @@ package com.modernjava.payment;
 
 import com.modernjava.domain.CardType;
 
+/**
+ * From Udemy course
+ * <a href="https://www.udemy.com/course/modern-java-learn-java-8-features-by-coding-it/learn/lecture/47618911#overview">Udemy course</a>
+ */
 public final class PaymentFactory {
 
     private PaymentFactory() {
