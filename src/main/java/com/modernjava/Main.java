@@ -1,6 +1,7 @@
 package com.modernjava;
 
 import com.modernjava.domain.Card;
+import com.modernjava.domain.CheckOutStatus;
 import com.modernjava.domain.OrderDetails;
 import com.modernjava.payment.CreditCardPayment;
 import com.modernjava.payment.DebitCardPayment;
@@ -8,6 +9,7 @@ import com.modernjava.payment.PaymentFactory;
 import com.modernjava.payment.PaymentLogger;
 import com.modernjava.payment.PaymentService;
 import com.modernjava.payment.RewardsCardPayment;
+import com.modernjava.service.CheckoutService;
 
 import java.math.BigDecimal;
 
@@ -45,6 +47,11 @@ public class Main {
         // call payment service for debit card
         PaymentService paymentService = new PaymentService();
         paymentService.makePaymentv2(orderDetails);
+
+        // call checkout service
+        CheckoutService checkoutService = new CheckoutService(paymentService);
+        CheckOutStatus checkOutStatus = checkoutService.checkoutOrder(orderDetails);
+        System.out.printf("Checkout service for order id %s, got response %s%n", orderDetails.orderId(),checkOutStatus);
 
     }
 }
