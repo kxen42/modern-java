@@ -54,7 +54,6 @@ public class RecordPatternMatching {
             case Octagon(var size, var color, var name) when name == null -> String.format("color: %s, name: (NIL)", color);
             case Octagon(var size, var color, var name) -> name + " | " + size;
             case null, default ->  "poly: " + poly;
-            // don't need default because we have case for every permitted Polygon type
         };
     }
 
