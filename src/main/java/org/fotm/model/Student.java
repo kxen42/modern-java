@@ -33,6 +33,7 @@ public class Student implements Comparable<Student> {
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private Optional<Bike> bike;
+    @Builder.Default
     private List<String> activities = new ArrayList<>();
 
     public Student(String name, Grade grade) {

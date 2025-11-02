@@ -6,10 +6,10 @@ public class SealedClasses {
 
     }
 
-    public sealed interface Cartoon permits Flinstones {
+    public sealed interface Cartoon permits Flintstones {
     }
 
-    public non-sealed interface Flinstones extends Cartoon {
+    public non-sealed interface Flintstones extends Cartoon {
     }
 
     /*
@@ -43,12 +43,12 @@ public class SealedClasses {
     }
 
     // non-sealed class doesn't need subclass
-    public non-sealed class Truck implements Driveable {
+    public non-sealed static class Truck implements Driveable {
     }
 
     // no surprise that final class still doesn't need subclass
     // even if it implements a sealed interface
-    public final class Golfcart implements Driveable {
+    public static final class Golfcart implements Driveable {
     }
 
 }

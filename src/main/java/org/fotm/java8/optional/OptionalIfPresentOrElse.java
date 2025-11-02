@@ -10,7 +10,7 @@ import java.util.stream.Stream;
  * Demo {@code Optional.ifPresentOrElse}.
  * <p>
  * {@code Optional} method {@code public void ifPresentOrElse(Consumer<? super T> action,
- * Runnable emptyAction)} was introduced in Java 9. Its purpose is to allow you to take one action if the value
+ * FunctionalInterfaces emptyAction)} was introduced in Java 9. Its purpose is to allow you to take one action if the value
  * and to take another action of it is not present. A common use case is to log a message when the value is not
  * present.
  */
