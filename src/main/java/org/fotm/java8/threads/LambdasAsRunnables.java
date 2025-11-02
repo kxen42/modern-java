@@ -1,7 +1,7 @@
 package org.fotm.java8.threads;
 
 /**
- * {@code Runnable} has one abstract class; therefore, it is a {@Function} and it can be implemented bu a lambda.
+ * {@code FunctionalInterfaces} has one abstract class; therefore, it is a {@Function} and it can be implemented bu a lambda.
  */
 public class LambdasAsRunnables {
     public static void main(String[] args) {
@@ -21,8 +21,8 @@ public class LambdasAsRunnables {
             public void run() {
                 System.out.println("Inside anonymous class 4");
             }
-        }, "annonymous class").start();
+        }, "anonymous class").start();
 
-        new Thread(() -> System.out.println("Inside Runnable 5"), "bob").start();
+        new Thread(() -> System.out.println("Inside FunctionalInterfaces 5"), "bob").start();
     }
 }
