@@ -3,6 +3,8 @@ package org.fotm.java8.lambda;
 import com.modernjava.domain.Card;
 import com.modernjava.domain.CardType;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Use lambda syntax to implement FunctionalInterfaces Original source <a
@@ -50,11 +52,13 @@ public class FunctionalInterfaces {
     Card bob1 = new Card("bob", "42", "123", "12-12-2024", CardType.CREDIT);
     Card bob2 = new Card("bob", "43", "321", "12-12-2028", CardType.DEBIT);
     Card bob3 = new Card("bob", "4324", "3214", "12-12-2028", CardType.CREDIT);
+    Card fred1 = new Card("fred", "14", "3214", "12-12-2028", CardType.CREDIT);
+    Card fred2 = new Card("fred", "15", "3214", "12-12-2028", CardType.CREDIT);
 
     var result = cardNameComparator.compare(bob1, bob3);
-    System.out.println("chaining comparators " + result);
+    System.out.println("cardNameComparator " + result);
     result = cardCardTypeComparator.compare(bob1, bob3);
-    System.out.println("chaining comparators " + result);
+    System.out.println("cardCardTypeComparator " + result);
 
     result = cardNameComparator.thenComparing(cardCardTypeComparator).compare(bob1, bob3);
     System.out.println("chaining comparators " + result);
@@ -64,5 +68,12 @@ public class FunctionalInterfaces {
 
     result = cardNameComparator.thenComparing(cardCardTypeComparator).compare(bob2, bob1);
     System.out.println("chaining comparators " + result);
+
+    // sorted using chaining comparators
+    List.of(bob3, fred1, bob2, fred2, bob1).forEach(System.out::println);
+    System.out.printf("Sort by card type then by card name%n");
+    Stream.of(bob3, fred1, bob2, fred2, bob1)
+        .sorted(cardCardTypeComparator.thenComparing(cardNameComparator))
+        .forEach(System.out::println);
   }
 }
