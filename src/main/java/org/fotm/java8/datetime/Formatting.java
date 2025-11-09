@@ -15,6 +15,7 @@ public class Formatting {
     usingBuilder();
     isoDates();
     optionalSeconds();
+    textEscape();
 
   }
 
@@ -69,5 +70,14 @@ public class Formatting {
     System.out.println("optional seconds " + formatter.format(LocalDateTime.now()));
 
     System.out.println("parsed " + LocalDateTime.parse("1999-12-31 23.59", formatter));
+  }
+
+  public static void textEscape() {
+    System.out.println(" ----- textEscape");
+    var str = "12/31/1999 it's garbage 11:01";
+   var formatter =  DateTimeFormatter.ofPattern("MM/dd/yyyy' it''s garbage 'hh:mm");
+    String ldt = LocalDateTime.now().format(formatter);
+    System.out.println("formatted with text escape " + ldt);
+    System.out.println("parsed with text escape " + formatter.parse(str));
   }
 }
