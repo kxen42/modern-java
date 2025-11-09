@@ -7,9 +7,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalUnit;
 import java.time.temporal.UnsupportedTemporalTypeException;
+import java.util.Date;
 
 public class LocalX {
 
@@ -20,6 +22,8 @@ public class LocalX {
     localTime();
     localDateTime();
     usingClock();
+    utilDate();
+    sqlDate();
   }
 
   public static void localDate() {
@@ -54,5 +58,42 @@ public class LocalX {
     System.out.println("later " + later);
 
     System.out.printf("earlier %s, base %s, later %s%n", LocalDateTime.now(earlier), LocalDateTime.now(baseClock), LocalDateTime.now(later));
+  }
+
+  public static void utilDate() {
+    System.out.println(" ----- utilDate");
+    Date utilDate = new Date();
+    System.out.println("java.util.Date " + utilDate);
+
+    // convert java.util.Date to LocalDate
+    LocalDate localDate = utilDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    System.out.println("java.time.LocalDate " + localDate);
+    LocalDateTime localDateTime = utilDate.toInstant().atZone(ZoneId.systemDefault())
+        .toLocalDateTime();
+    System.out.println("java.time.LocalDateTime " + localDateTime);
+    LocalTime localTime = utilDate.toInstant().atZone(ZoneId.systemDefault())
+        .toLocalTime();
+    System.out.println("java.time.LocalTime " + localTime);
+
+    // yuck LocalTime/Instant to ancient Date
+    Date date = Date.from(LocalDate.now().atTime(LocalTime.now()).atZone(ZoneId.systemDefault()).toInstant());
+    System.out.println("java.time.Local* to java.util.Date " + date);
+  }
+
+  public static void sqlDate() {
+    System.out.println(" ----- sqlDate");
+    var date = java.sql.Date.valueOf(LocalDate.now());
+    System.out.println("java.sql.Date " + date);
+
+    // convert java.util.Date to LocalDate
+    // Note the use of atZone on the Instant
+    LocalDate localDate = date.toLocalDate();
+    System.out.println("java.time.LocalDate " + localDate);
+
+    try {
+      date.toInstant();
+    } catch (UnsupportedOperationException _) {
+      System.out.printf("java.sql.Date doesn't have any time date%n\ttoInstant throws UnsupportedOperationException%n");
+    }
   }
 }
